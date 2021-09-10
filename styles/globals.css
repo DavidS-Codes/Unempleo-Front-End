@@ -1,0 +1,47 @@
+.navbar {
+  background-color: white;
+}
+html,
+#__next,
+main {
+  background-color: #f3fede;
+  height: 100%;
+}
+body{
+  height: 100%;
+}
+.header-link {
+  color: #707070;
+}
+.bottom {
+  border-bottom: 2px solid #99be86;
+}
+
+.container {
+  max-width: unset;
+}
+.divMain{
+  height: 100%;
+  max-height: unset;
+}
+
+/* Styles to register page */
+.register-section {
+  height: 100%;
+}
+
+.register-section > .col-md-6{
+  padding-left: 0;
+}
+
+.register-section > .col-md-6 > .img-register-circles{
+  width: 100%;
+  opacity: 0.2;
+  position: absolute;
+  z-index: 0;
+}
+
+.register-section > .col-md-6 > .form-register{
+  position: absolute;
+  z-index: 1;
+}

@@ -6,12 +6,11 @@ import NProgress from "nprogress";
 import nProgress from "nprogress";
 import classNames from "classnames";
 
-const Layout = ({ children, title, footer = true, dark = false }) => {
+const Layout = ({ children}) => {
   const router = useRouter();
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      console.log(url);
       NProgress.start();
     };
 
@@ -38,8 +37,6 @@ const Layout = ({ children, title, footer = true, dark = false }) => {
 
 Layout.proptypes = {
   children: PropTypes.node,
-  title: PropTypes.string,
-  footer: PropTypes.bool,
 };
 
 export default Layout;

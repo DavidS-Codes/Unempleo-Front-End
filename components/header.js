@@ -1,7 +1,24 @@
   
 import Link from "next/link";
-
+import { useRouter } from 'next/router';
+import { useState, useEffect } from "react";
 const Navbar = () => {
+  const router = useRouter()
+  const [cssLogin,setCssLogin] =  useState("nav-link header-link");
+  const [cssRegister,setRegister] = useState("nav-link header-link");
+ 
+  useEffect(() => {
+    if (router.pathname === "/register"){
+      setRegister("nav-link header-link bottom")
+    }else if (router.pathname === "/login"){
+      setCssLogin("nav-link header-link bottom")
+    }
+
+}, []);
+
+
+ 
+ 
   return (
     <nav className="navbar navbar-expand-lg p-0">
       <div className="container-fluid">
@@ -25,14 +42,15 @@ const Navbar = () => {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link href="/register">
-                <a className="nav-link active header-link" aria-current="page">
+                {/* <a className="nav-link header-link" aria-current="page" > */}
+                <a className={cssRegister} >
                   Registrarse
                 </a>
               </Link>
             </li>
             <li className="nav-item">
               <Link href="/login">
-                <a className="nav-link header-link bottom">
+                <a className={cssLogin}>
                  Iniciar Sesión 
                 </a>
               </Link>
@@ -43,5 +61,6 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 export default Navbar;

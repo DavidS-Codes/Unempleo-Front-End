@@ -6,6 +6,7 @@ html,
 main {
   background-color: #f3fede;
   height: 100%;
+  font-family: 'Segoe UI';
 }
 body{
   height: 100%;
@@ -25,23 +26,51 @@ body{
   max-height: unset;
 }
 
-/* Styles to register page */
-.register-section {
+/* Styles to register page and login page*/
+.register-login-section {
   height: 100%;
+ 
 }
 
-.register-section > .col-md-6{
+.register-login-section > .col-md-6{
   padding-left: 0;
+  background-color: #E8F3CD;
 }
 
-.register-section > .col-md-6 > .img-register-circles{
+.register-login-section > .col-md-6 > .img-register-login-circles{
   width: 100%;
-  opacity: 0.2;
+  opacity: 0.1;
   position: absolute;
   z-index: 0;
 }
 
-.register-section > .col-md-6 > .form-register{
+.register-login-section > .col-md-6 > .register-login-form{
   position: absolute;
   z-index: 1;
+}
+.input-custom{
+  min-width: 483px;
+  min-height: 49px ;
+}
+.label-custom{
+  font-size: 25pt;
+  color: #707070;
+}
+.button-custom{
+  min-width: 193px;
+  min-height: 63px ;
+  background-color: #E2EBAB;
+  font-size: 20pt;
+  color: #707070;
+}
+
+.links-custom > a{
+  font-size: 20pt;
+  color: #707070;
+  text-decoration:underline; 
+}
+
+.links-custom > b{
+  font-size: 20pt;
+  color: #707070;
 }

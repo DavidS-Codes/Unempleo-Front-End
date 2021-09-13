@@ -4,12 +4,14 @@ import Navbar from "./header";
 import PropTypes from "prop-types";
 import NProgress from "nprogress";
 import nProgress from "nprogress";
-import classNames from "classnames";
+import cookieCutter from 'cookie-cutter'
 
-const Layout = ({ children}) => {
+const Layout = ({ children, userlogged}) => {
   const router = useRouter();
 
   useEffect(() => {
+    
+    
     const handleRouteChange = (url) => {
       NProgress.start();
     };
@@ -21,13 +23,27 @@ const Layout = ({ children}) => {
     router.events.on("routeChangeError", () => nProgress.done());
 
     return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
+      router.events.off("routeChangeStart", handleRouteChange); 
     };
   }, []);
 
+//  Create cookie with time
+//   var cookie = require('cookie-cutter');
+//   var times = parseInt(cookie.get('times'), 10) || 0;
+//   cookie.set('times', times + 1);
+  // function checkToken()  {
+  //   if (cookieCutter.get('token')){
+  //     userlogged = true;
+  //   }else{
+  //     userlogged = false;
+  //   }
+  //   return userlogged;
+
+  // };
+
   return (
-    <div className="divMain">
-      <Navbar />
+    <div className="divMain" >
+      <Navbar  logged={true}/>
       <main className="container h-100">
         {children}
       </main>
@@ -37,6 +53,7 @@ const Layout = ({ children}) => {
 
 Layout.proptypes = {
   children: PropTypes.node,
+  userlogged: PropTypes.bool,
 };
 
 export default Layout;

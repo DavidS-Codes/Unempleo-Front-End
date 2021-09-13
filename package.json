@@ -8,7 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "bootstrap": "^4.6.0",
+    "bootstrap": "4.6.x",
+    "cookie-cutter": "^0.2.0",
+    "font-awesome": "^4.7.0",
     "next": "10.1.3",
     "nprogress": "^0.2.0",
     "react": "17.0.2",

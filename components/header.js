@@ -2,7 +2,10 @@
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
-const Navbar = () => {
+import PropTypes from "prop-types";
+
+
+const Navbar = ({logged}) => {
   const router = useRouter()
   const [cssLogin,setCssLogin] =  useState("nav-link header-link");
   const [cssRegister,setRegister] = useState("nav-link header-link");
@@ -16,7 +19,7 @@ const Navbar = () => {
 
 }, []);
 
-
+console.log(logged)
  
  
   return (
@@ -39,27 +42,61 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link href="/register">
-                {/* <a className="nav-link header-link" aria-current="page" > */}
-                <a className={cssRegister} >
-                  Registrarse
-                </a>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/login">
-                <a className={cssLogin}>
-                 Iniciar Sesión 
-                </a>
-              </Link>
-            </li>
-          </ul>
+          {
+            logged ? (
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item ml-2 mt-1">
+                Buscar por
+                </li>
+                
+                <li className="nav-item ml-2 ">
+                    <select className="form-control search-select" name="search" id="search">
+                      <option default> Seleccione</option>
+                      <option>Ofertas</option>
+                      <option>Personas</option>
+                    </select>
+                </li>
+                <li className="nav-item ml-2">
+                <div className="input-group search-input ">
+                <span className="input-group-append">
+                    <button className="btn btn-outline-secondary border-right-0" type="button">
+                        <i className="fa fa-search"></i>
+                    </button>
+                  </span>
+                  <input className="form-control py-2 border-left-0 border border-secondary"  id="example-search-input" />
+                 
+                </div>
+                </li>
+            </ul>
+            ):(
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link href="/register">
+                    <a className={cssRegister} >
+                      Registrarse
+                    </a>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link href="/login">
+                    <a className={cssLogin}>
+                    Iniciar Sesión 
+                    </a>
+                  </Link>
+                </li>
+            </ul>
+            )
+          }
+         
         </div>
       </div>
     </nav>
   );
+};
+
+
+Navbar.proptypes = {
+  logged: PropTypes.bool,
 };
 
 

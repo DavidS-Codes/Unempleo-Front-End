@@ -26,6 +26,15 @@ body{
   max-height: unset;
 }
 
+/* Styles to navbar with user authenticaded */
+
+.search-input{
+  min-width: 398px;
+}
+.search-select{
+  min-width: 353px;
+}
+
 /* Styles to register page and login page*/
 .register-login-section {
   height: 100%;
@@ -73,4 +82,90 @@ body{
 .links-custom > b{
   font-size: 20pt;
   color: #707070;
+}
+
+
+/* Styles to  profile view*/
+.section-applied-offers{
+  background-color: #FCFFF7;
+}
+.icon-edit{
+  margin-top: -1.5rem;
+  margin-left: 12rem;
+}
+.text-general-profile, label.col-form-label{
+  font-size: 30pt;
+}
+
+.text-name-profile{
+  font-size: 45pt;
+}
+.icon-edit-basic-information{
+  float: right;
+}
+
+.col-sm-8 > input.form-control{
+  max-width: 354px;
+  margin-top: 1.3rem;
+}
+
+
+.form-group-textarea-custom > textarea.custom-text-area-profile{
+  resize: none;
+}
+.form-group-textarea-custom > a > i{
+  float: right;
+  margin-top: -2rem;
+  margin-right: 0.2rem;
+}
+.button-red-custom-profile{
+  color: #707070; 
+  background-color: #ec9090;
+  border-color: #ec9090;
+  max-width: 175px;
+  max-height: 47px;
+  width: 175px;
+  height: 47px;
+  font-size: 20pt;
+}
+.button-red-custom-profile:hover, .button-red-custom-profile:active, .button-red-custom-profile:focus, .button-red-custom-profile:checked{
+  color: #707070; 
+  background-color: #f06c72;
+  border-color: #f06c72;
+  max-width: 175px;
+  max-height: 47px;
+  width: 175px;
+  height: 47px;
+  font-size: 20pt;
+}
+
+.button-green-custom-profile{
+  color: #707070; 
+  background-color: #e2ebab;
+  border-color: #e2ebab;
+  max-width: 175px;
+  max-height: 47px;
+  width: 175px;
+  height: 47px;
+  font-size: 20pt;
+}
+.button-green-custom-profile:hover, .button-green-custom-profile:active, .button-green-custom-profile:focus, .button-green-custom-profile:checked{
+  color: #707070; 
+  background-color: #d0df70;
+  border-color: #d0df70;
+  max-width: 175px;
+  max-height: 47px;
+  width: 175px;
+  height: 47px;
+  font-size: 20pt;
+}
+
+.button-publish-ofert{
+  background-color: #545ee8;
+  color: white;
+  font-size: 25pt;
+  max-width: 272px;
+  max-height: 63px;
+  width: 272px;
+  height: 63px;
 }

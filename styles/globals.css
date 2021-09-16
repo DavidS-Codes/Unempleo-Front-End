@@ -86,7 +86,7 @@ body{
 
 
 /* Styles to  profile view*/
-.section-applied-offers{
+.section-left-simple{
   background-color: #FCFFF7;
 }
 .icon-edit{
@@ -168,4 +168,43 @@ body{
   max-height: 63px;
   width: 272px;
   height: 63px;
+}
+
+/*  Styles to create offer */
+.section-photo{
+  position: relative;
+  height: 12.5vw;
+  width: 18.17vw;
+}
+.section-photo > img{
+  display: block;
+  height: 12.5vw;
+  width: 18.17vw;
+}
+.section-photo > a > i{
+  right:0;
+  bottom: 0;
+  position: absolute;
+}
+.name-offer{
+  display: flex;
+  padding: 2vw;
+  align-items:center;
+  width: 33.33vw;
+  height: 5.78vw;
+  margin-top: 4vw;
+  background: white;
+  color: #707070;
+  font-size: 30pt;
+  border: 1px solid;
+  
+}
+
+.add-icon{
+  content: "";
+  display: inline-block;
+  background-image: url('../public/add.svg');
+  background-repeat: no-repeat;
+  width: 3rem;
+  height: 5rem;
 }

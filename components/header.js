@@ -23,28 +23,29 @@ console.log(logged)
  
  
   return (
-    <nav className="navbar navbar-expand-lg p-0">
-      <div className="container-fluid">
-        <Link href="/">
-          <a className="navbar-brand">
-            <img src="logo.png" className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt=""/>
-          </a>
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+    <>
           {
             logged ? (
-              <ul className="navbar-nav ml-auto">
+              <nav className="navbar navbar-expand-lg p-0 navbar-logged">
+              <div className="container-fluid">
+                <Link href="/">
+                  <a className="navbar-brand">
+                    <img src="logo.png" className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt=""/>
+                  </a>
+                </Link>
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav ml-auto ">
                 <li className="nav-item ml-2 mt-1">
                 Buscar por
                 </li>
@@ -59,16 +60,40 @@ console.log(logged)
                 <li className="nav-item ml-2">
                 <div className="input-group search-input ">
                 <span className="input-group-append">
-                    <button className="btn btn-outline-secondary border-right-0" type="button">
+                    <button className="btn btn-outline-secondary border-right-0 btn-search-custom" type="button">
                         <i className="fa fa-search"></i>
                     </button>
                   </span>
-                  <input className="form-control py-2 border-left-0 border border-secondary"  id="example-search-input" />
+                  <input className="form-control py-2 border-left-0 input-search-custom"  id="example-search-input" />
                  
                 </div>
                 </li>
             </ul>
+            
+         
+        </div>
+        </div>
+      </nav>
             ):(
+              <nav className="navbar navbar-expand-lg p-0">
+              <div className="container-fluid">
+                <Link href="/">
+                  <a className="navbar-brand">
+                    <img src="logo.png" className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt=""/>
+                  </a>
+                </Link>
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <Link href="/register">
@@ -85,12 +110,14 @@ console.log(logged)
                   </Link>
                 </li>
             </ul>
-            )
-          }
+            
          
         </div>
-      </div>
-    </nav>
+        </div>
+      </nav>
+            )
+          }
+        </>  
   );
 };
 

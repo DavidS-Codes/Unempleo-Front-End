@@ -44,9 +44,19 @@ const Layout = ({ children, userlogged}) => {
   return (
     <div className="divMain" >
       <Navbar  logged={true}/>
-      <main className="container h-100">
-        {children}
-      </main>
+      {
+        userlogged ?(
+          
+          <main className="container h-100 main-usernotlogged">
+          {children}
+        </main>
+        ):(
+          <main className="container h-100 main-userlogged">
+            {children}
+          </main>
+        )
+      }
+      
     </div>
   );
 };

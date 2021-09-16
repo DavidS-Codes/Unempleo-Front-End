@@ -1,9 +1,20 @@
 .navbar {
   background-color: white;
 }
+.navbar-logged{
+  background-color: #f3fede;
+}
 html,
-#__next,
-main {
+#__next {
+  height: 100%;
+  font-family: 'Segoe UI';
+}
+.main-userlogged{
+  background-color: white;
+  height: 100%;
+  font-family: 'Segoe UI';
+}
+.main-usernotlogged{
   background-color: #f3fede;
   height: 100%;
   font-family: 'Segoe UI';
@@ -33,6 +44,13 @@ body{
 }
 .search-select{
   min-width: 353px;
+}
+.btn-search-custom{
+  background-color: white;
+}
+
+.input-search-custom{
+  border: 1px solid;
 }
 
 /* Styles to register page and login page*/
@@ -207,4 +225,10 @@ body{
   background-repeat: no-repeat;
   width: 3rem;
   height: 5rem;
+}
+
+
+/* Styles to  change password view*/
+.text-change-password{
+  font-size: 40pt;
 }

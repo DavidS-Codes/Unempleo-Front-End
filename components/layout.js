@@ -43,7 +43,7 @@ const Layout = ({ children, userlogged}) => {
 
   return (
     <div className="divMain" >
-      <Navbar  logged={true}/>
+      <Navbar  logged={false}/>
       {
         userlogged ?(
           

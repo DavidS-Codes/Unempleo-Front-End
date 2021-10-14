@@ -1,17 +1,32 @@
 import React, { Component } from "react";
 import register from "../img/register.jpg";
-// import Modal from "../components/modal";
+import Modal from "../components/modal";
 
-export default class ChangePasswordEmail extends Component {
-  //Show and hide modal
-  // const [showModal, setShowModal] = useState(false);
+// export default class ChangePasswordEmail extends Component {
+class ChangePasswordEmail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false,
+    };
+  }
+  
+
   render() {
+    const handleShow = () =>
+      this.setState({
+        show: true,
+      });
+      const handleClose = () => this.setState({
+        show: false,
+      });
+
     return (
       <div className="row register-login-section ">
-        {/* <Modal show={showModal} onClose={() => setShowModal(false)}>
+        <Modal showModal={this.state.show} handleClose={handleClose}>
         Se ha realizado el envío de un correo electrónico. Por favor ingrese y
-        reestablezca la contraseña
-      </Modal> */}
+          reestablezca la contraseña
+        </Modal>
         <div className="col-md-6">
           <img src={register} className="img-fluid h-100" alt="" />
         </div>
@@ -55,7 +70,7 @@ export default class ChangePasswordEmail extends Component {
                     id=""
                     type="button"
                     className="btn btn-primary rounded button-green-custom-profile ml-5"
-                    // onClick={() => setShowModal(true)}
+                    onClick={handleShow}
                   >
                     Aceptar
                   </button>
@@ -73,3 +88,5 @@ export default class ChangePasswordEmail extends Component {
     );
   }
 }
+
+export default ChangePasswordEmail;

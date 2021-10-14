@@ -179,13 +179,13 @@ body{
 }
 
 .button-publish-ofert{
-  background-color: #545ee8;
-  color: white;
-  font-size: 25pt;
-  max-width: 272px;
-  max-height: 63px;
-  width: 272px;
-  height: 63px;
+  background-color: #545ee8 !important;
+  color: white !important;
+  font-size: 25pt !important;
+  max-width: 272px !important;
+  max-height: 63px !important;
+  width: 272px !important;
+  height: 63px !important;
 }
 
 /*  Styles to create offer */

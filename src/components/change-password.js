@@ -12,7 +12,7 @@ export default class ChangePassword extends Component {
             <div className="container">
               <form>
                 <div className="form-group row">
-                  <label htmlFor="typeDni" className="col-sm-3 col-form-label">
+                  <label for="typeDni" className="col-sm-3 col-form-label">
                     Usuario
                   </label>
                   <div className="col-sm-9 mt-4">
@@ -20,7 +20,7 @@ export default class ChangePassword extends Component {
                   </div>
                 </div>
                 <div className="form-group row mt-5">
-                  <label htmlFor="date" className="col-sm-5 col-form-label">
+                  <label for="date" className="col-sm-5 col-form-label">
                     Contraseña actual
                   </label>
                   <div className="col-sm-7 mt-4">
@@ -28,7 +28,7 @@ export default class ChangePassword extends Component {
                   </div>
                 </div>
                 <div className="form-group row mt-5">
-                  <label htmlFor="date" className="col-sm-5 col-form-label">
+                  <label for="date" className="col-sm-5 col-form-label">
                     Contraseña nueva
                   </label>
                   <div className="col-sm-7 mt-4">
@@ -36,7 +36,7 @@ export default class ChangePassword extends Component {
                   </div>
                 </div>
                 <div className="form-group row mt-5">
-                  <label htmlFor="date" className="col-sm-5 col-form-label">
+                  <label for="date" className="col-sm-5 col-form-label">
                     Confirmar contraseña
                   </label>
                   <div className="col-sm-7 mt-4">
@@ -49,7 +49,7 @@ export default class ChangePassword extends Component {
                       name=""
                       id=""
                       className="btn btn-primary rounded button-red-custom-profile"
-                      href="#"
+                      href="/changePassword"
                       role="button"
                     >
                       Cancelar
@@ -58,7 +58,7 @@ export default class ChangePassword extends Component {
                       name=""
                       id=""
                       className="btn btn-primary rounded button-green-custom-profile ml-5"
-                      href="#"
+                      href="/changePassword"
                       role="button"
                     >
                       Guardar

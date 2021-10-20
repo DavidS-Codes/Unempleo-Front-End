@@ -25,31 +25,7 @@ class ModalComponent extends React.Component {
         ) : null}
       </>
 
-      // < className={styles.overlay}>
-      //   <Modal
-      //     className={styles.modal}
-      //     show={this.props.showModal}
-      //     onHide={this.props.handleClose}
-      //   >
-      //     <Modal.Header closeButton className={styles.header}>
-      //       <Modal.Title>Modal heading</Modal.Title>
-      //     </Modal.Header>
-      //     <Modal.Body className={styles.body}>
-      //       Woohoo, you're reading this text in a modal!
-      //     </Modal.Body>
-      //     <Modal.Footer>
-      //       {/* <div className="text-center">
-      //         <button
-      //           type="button"
-      //           className="btn btn-primary rounded button-green-custom-profile mt-5"
-      //           onClick={this.props.handleClose}
-      //         >
-      //           Aceptar
-      //         </button>
-      //       </div> */}
-      //     </Modal.Footer>
-      //   </Modal>
-      // </>
+     
     );
   }
 }

@@ -1,7 +1,7 @@
 .modal{
     background: #f3fede;
-    width: 767px;
-    height: 262px;
+    min-width: 767px;
+    min-height: 262px;
     border-radius: 15px;
     padding:20px;
     z-index: 100;

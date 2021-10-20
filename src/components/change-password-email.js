@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import register from "../img/register.jpg";
 import Modal from "../components/modal";
 

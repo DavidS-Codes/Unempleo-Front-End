@@ -1,7 +1,6 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import logo from "../img/logo.png";
-
 // export class Navbar extends Component {
 class Navbar extends React.Component {
   constructor() {
@@ -13,7 +12,7 @@ class Navbar extends React.Component {
   }
   componentDidMount() {
     let url = window.location.pathname;
-    
+
     if (url === "/register") {
       console.log("aca!!!");
       this.setState = {
@@ -82,12 +81,15 @@ class Navbar extends React.Component {
             </div>
           </nav>
         ) : (
-          
           <nav className="navbar navbar-expand-lg p-0">
             <div className="container-fluid">
-              <Route path="/" className="navbar-brand">
+              <Link to="/login" className="navbar-brand" replace>
                 <img src={logo} className="img-fluid" alt="" />
-              </Route>
+              </Link>
+              {/* <Route path="/" className="navbar-brand">
+                
+              </Route> */}
+
               <button
                 className="navbar-toggler"
                 type="button"
@@ -102,13 +104,22 @@ class Navbar extends React.Component {
               <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    <a name="" id="" className={this.state.cssRegister} href="/register" role="button">Registrarse</a>
-                    {/* <Route path="/register" className={this.state.cssRegister}>
-                      
-                    </Route> */}
+                    {/* <a name="" id="" className={this.state.cssRegister} href="/register" role="button">Registrarse</a> */}
+                    <Link
+                      to="/register"
+                      className={this.state.cssRegister}
+                      replace
+                    >
+                      {" "}
+                      Registrarse
+                    </Link>
                   </li>
                   <li className="nav-item">
-                  <a name="" id="" className={this.state.cssRegister} href="/login" role="button">Iniciar Sesión</a>
+                    <Link to="/login" className={this.state.cssLogin} replace>
+                      {" "}
+                      Iniciar Sesión
+                    </Link>
+                    {/* <a name="" id="" className={this.state.cssRegister} href="/login" role="button">Iniciar Sesión</a> */}
                     {/* <Route path="/login" className={this.state.cssLogin}>
                       
                     </Route> */}

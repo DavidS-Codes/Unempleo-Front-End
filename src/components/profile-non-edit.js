@@ -57,7 +57,7 @@ const ProfileNonEdit = (props) => {
       });
   }
   useEffect(() => {
-    getProfile(7);
+    getProfile(15);
   }, []);
 
   return (

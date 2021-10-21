@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import register from "../img/register.jpg";
-
+import {
+  Link
+} from "react-router-dom";
 export default class Register extends Component {
   render() {
     return (
@@ -64,7 +66,8 @@ export default class Register extends Component {
                 </div>
                 <div className="form-group links-custom text-center">
                   <b>¿Tienes cuenta? </b>
-                  <a className="card-link" href="/login">Inicia sesión</a>
+                  <Link to="/login" className="card-link" replace > Inicia sesión</Link>
+                  {/* <a className="card-link" href="/login">Inicia sesión</a> */}
                 </div>
               </form>
             </div>

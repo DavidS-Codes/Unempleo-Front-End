@@ -73,7 +73,7 @@ const ProfileEdit = (props) => {
     getTypeDni();
     getAcademics();
     getPreferences();
-    getProfile(7);
+    getProfile(3);
   }, []);
 
   function makeid(length) {
@@ -130,7 +130,7 @@ const ProfileEdit = (props) => {
     const url = "http://localhost:8080/unempleo/persona";
 
     const data = {
-      pkPersona: 7,
+      pkPersona: 15,
       fkUsuario: 2,
       noIdentificacion: form.current.noIdentificacion.value,
       fkPreferenciasEmpleo: form.current.fkPreferenciasEmpleo.value,

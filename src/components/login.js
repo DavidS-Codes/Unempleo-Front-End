@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import login from "../img/login.jpg";
+import {
+  Link
+} from "react-router-dom";
 
 export default class Login extends Component {
   render() {
@@ -50,13 +53,15 @@ export default class Login extends Component {
                   {/* <Link href="/login">
                     <a className="card-link">Registrarse ahora</a>
                   </Link> */}
-                  <a className="card-link" href="/login">Registrarse ahora</a>
+                  {/* <a className="card-link" href="/register">Registrarse ahora</a> */}
+                  <Link to="/register" className="card-link" replace > Registrarse ahora</Link>
                 </div>
                 <div className="form-group links-custom text-center">
                   {/* <Link href="/login">
                     <a className="card-link">¿Olvido su contraseña?</a>
                   </Link> */}
-                  <a className="card-link" href="/login">¿Olvido su contraseña?</a>
+                  {/* <a className="card-link" href="/login">¿Olvido su contraseña?</a> */}
+                  <Link to="/login" className="card-link" replace > ¿Olvido su contraseña?</Link>
                 </div>
               </form>
             </div>

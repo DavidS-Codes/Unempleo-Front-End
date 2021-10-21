@@ -4,6 +4,7 @@ import blankProfile from "../img/Blank-profile.png";
 import Modal from "./modal";
 import UploadImage from "./UploadImage";
 import Loading from "./page-load";
+import pdf from "../icons/pdf.png";
 
 // function Profile() {
 const ProfileEdit = (props) => {
@@ -14,6 +15,7 @@ const ProfileEdit = (props) => {
   const [user, setUser] = useState([]);
 
   const [imgProfile, setimgProfile] = useState(blankProfile);
+  const [file, setFile] = useState("nada");
 
   const [modal, setModal] = useState(false);
   const [modalSubmit, setModalSubmit] = useState(false);
@@ -58,6 +60,9 @@ const ProfileEdit = (props) => {
       .then((res) => {
         res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         setUser(res.data);
+        if (res.data.foto != "") {
+          setimgProfile(res.data.foto);
+        }
         setLoad(false);
       })
       .catch((err) => {
@@ -91,7 +96,7 @@ const ProfileEdit = (props) => {
     let temp = dataImg.split(";", 1);
     let TypeImage = temp[0].split(":", 2);
 
-    let url = "http://localhost:8080/unempleo/GoogleDrive/uploadPhoto";
+    let url = "http://localhost:8080/unempleo/GoogleDrive/uploadFile";
     let bodyJson = {
       folderId: "1sgAXa0wOTD3rdRwV5F-xFWVeQryoz4nw",
       type: TypeImage[1],
@@ -111,7 +116,7 @@ const ProfileEdit = (props) => {
   };
 
   const handleCloseSubmit = () => {
-    setModalSubmit(false)
+    setModalSubmit(false);
   };
 
   //Data from image
@@ -127,7 +132,7 @@ const ProfileEdit = (props) => {
     const data = {
       pkPersona: 7,
       fkUsuario: 2,
-      noIdentificacion: form.current.noIdentificacion.value ,
+      noIdentificacion: form.current.noIdentificacion.value,
       fkPreferenciasEmpleo: form.current.fkPreferenciasEmpleo.value,
       fkTipoDocumento: form.current.fkTipoDocumento.value,
       fkFormacionAcademica: form.current.fkFormacionAcademica.value,
@@ -136,16 +141,15 @@ const ProfileEdit = (props) => {
       fechaNacimiento: form.current.fechaNacimiento.value,
       correo: form.current.correo.value,
       perfilProfesional: form.current.perfilProfesional.value,
-      hojaDeVida: "test hoja de vida",
+      hojaDeVida: file,
       experienciaLaboral: form.current.experienciaLaboral.value,
       foto: imgProfile,
     };
 
-
     axios
       .put(url, data)
       .then((response) => {
-        window.location = "/profile"
+        window.location = "/profile";
         setLoad(false);
       })
       .catch((err) => {
@@ -154,12 +158,35 @@ const ProfileEdit = (props) => {
   };
 
   const UploadDocument = (e) => {
-    let file = e.target.files[0]
-    var fr = new FileReader();
-    fr.readAsDataURL(file);
-    console.log(e.target.files[0])
-    console.log(fr)
-  }
+    let file = e.target.files[0];
+    var fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = function () {
+      let filebase64 = fileReader.result
+      
+      filebase64 =  filebase64.replace(/^data:application\/[a-z]+;base64,/,"");
+      let temp = fileReader.result.split(";", 1);
+      let typePdf = temp[0].split(":", 2);
+
+      let url = "http://localhost:8080/unempleo/GoogleDrive/uploadFile";
+      let bodyJson = {
+        folderId: "1F3uE2KGiGTRnXR8gzidSW88W13QnpvEa",
+        type: typePdf[1],
+        name: makeid(10),
+        base64Image: filebase64,
+      };
+      setLoad(true);
+      axios
+        .post(url, bodyJson)
+        .then((data) => {
+          setFile("https://drive.google.com/uc?id=" + data.data.id);
+          setLoad(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  };
   return (
     <Loading loading={load}>
       <div className="row">
@@ -172,8 +199,8 @@ const ProfileEdit = (props) => {
               alt="..."
             />
             <div className="icon-edit">
-            <Modal showModal={modalSubmit} handleClose={ handleCloseSubmit}>
-                  Su Información ha sido guardada exitosamente
+              <Modal showModal={modalSubmit} handleClose={handleCloseSubmit}>
+                Su Información ha sido guardada exitosamente
               </Modal>
               <Modal showModal={modal} handleClose={handleClose}>
                 <UploadImage
@@ -244,6 +271,7 @@ const ProfileEdit = (props) => {
                     className="form-control"
                     id="dni"
                     name="noIdentificacion"
+                    maxlength="10"
                     defaultValue={user.noIdentificacion}
                   />
                 </div>
@@ -308,9 +336,30 @@ const ProfileEdit = (props) => {
                 <label htmlFor="hdv" className="col-sm-4 col-form-label">
                   Adjuntar hoja de vida
                 </label>
-                <div className="col-sm-8">
-                  <input type="file" className="form-control" id="hdv" name="file" onChange={UploadDocument} accept=".pdf"/>
-                </div>
+
+                {file != "nada" ? (
+                  <div className="col-sm-8 text-center">
+                    <a href={file} target="_blank">
+                      <img
+                        src={pdf}
+                        className="fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
+                        alt=""
+                        width="100px"
+                      />
+                    </a>
+                  </div>
+                ) : (
+                  <div className="col-sm-8">
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="hdv"
+                      name="file"
+                      onChange={UploadDocument}
+                      accept=".pdf"
+                    />
+                  </div>
+                )}
               </div>
               <div className="form-group row">
                 <label
@@ -429,7 +478,7 @@ const ProfileEdit = (props) => {
                     name=""
                     id=""
                     className="btn btn-primary rounded button-red-custom-profile"
-                    href="/test"
+                    href="/profile"
                     role="button"
                   >
                     Cancelar

@@ -128,10 +128,10 @@ const ProfileNonEdit = (props) => {
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label">Hoja de vida</label>
                 <div className="col-sm-8 text-center">
-                  <a href={user.hojaDeVida} target="_blank">
+                  <a href={user.hojaDeVida} target="_blank"  rel="noopener noreferrer">
                     <img
                       src={pdf}
-                      className="fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
+                      className="fluid"
                       alt=""
                       width="100px"
                     />

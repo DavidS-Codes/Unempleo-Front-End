@@ -60,7 +60,7 @@ const ProfileEdit = (props) => {
       .then((res) => {
         res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         setUser(res.data);
-        if (res.data.foto != "") {
+        if (res.data.foto !== "") {
           setimgProfile(res.data.foto);
         }
         setLoad(false);
@@ -207,13 +207,14 @@ const ProfileEdit = (props) => {
                   dataFromImageComponent={sendDataFromImageComponent}
                 ></UploadImage>
               </Modal>
-              <a role="button" onClick={handleShow}>
+              {/* <a role="button" onClick={handleShow}> */}
                 <i
                   className="fa fa-pencil-square-o fa-3x"
                   width="500vw"
                   aria-hidden="true"
+                  onClick={handleShow}
                 ></i>
-              </a>
+              {/* </a> */}
             </div>
             <div>
               <p className="text-general-profile">Información basica</p>
@@ -271,7 +272,7 @@ const ProfileEdit = (props) => {
                     className="form-control"
                     id="dni"
                     name="noIdentificacion"
-                    maxlength="10"
+                    maxLength="10"
                     defaultValue={user.noIdentificacion}
                   />
                 </div>
@@ -337,12 +338,12 @@ const ProfileEdit = (props) => {
                   Adjuntar hoja de vida
                 </label>
 
-                {file != "nada" ? (
+                {file !== "nada" ? (
                   <div className="col-sm-8 text-center">
-                    <a href={file} target="_blank">
+                    <a href={file} target="_blank" rel="noopener noreferrer">
                       <img
                         src={pdf}
-                        className="fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
+                        className="fluid"
                         alt=""
                         width="100px"
                       />
@@ -380,7 +381,7 @@ const ProfileEdit = (props) => {
                         <option
                           value={p.pkPreferenciasEmpleo}
                           key={p.pkPreferenciasEmpleo}
-                          selected
+                          defaultValue
                         >
                           {p.situacionActual}
                         </option>
@@ -415,7 +416,7 @@ const ProfileEdit = (props) => {
                         <option
                           value={a.pkFormacionAcademica}
                           key={a.pkFormacionAcademica}
-                          selected
+                          defaultValue
                         >
                           {a.nombreFormacion}
                         </option>

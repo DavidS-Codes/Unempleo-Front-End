@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../img/logo.png";
 // export class Navbar extends Component {
 class Navbar extends React.Component {
@@ -31,9 +31,12 @@ class Navbar extends React.Component {
         {this.props.logged ? (
           <nav className="navbar navbar-expand-lg p-0 navbar-logged">
             <div className="container-fluid">
-              <a href="/" className="navbar-brand">
+              <Link to="/login" className="navbar-brand" replace>
                 <img src={logo} className="img-fluid" alt="" />
-              </a>
+              </Link>
+              {/* <a href="/" className="navbar-brand">
+                <img src={logo} className="img-fluid" alt="" />
+              </a> */}
               <button
                 className="navbar-toggler"
                 type="button"
@@ -63,12 +66,19 @@ class Navbar extends React.Component {
                   <li className="nav-item ml-2">
                     <div className="input-group search-input ">
                       <span className="input-group-append">
-                        <button
+                        <Link
+                          to="/offers"
+                          className="btn btn-outline-secondary border-right-0 btn-search-custom"
+                          replace
+                        >
+                          <i className="fa fa-search"></i>
+                        </Link>
+                        {/* <button
                           className="btn btn-outline-secondary border-right-0 btn-search-custom"
                           type="button"
                         >
                           <i className="fa fa-search"></i>
-                        </button>
+                        </button> */}
                       </span>
                       <input
                         className="form-control py-2 border-left-0 input-search-custom"

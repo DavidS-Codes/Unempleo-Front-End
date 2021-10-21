@@ -17,10 +17,12 @@
 .body{
     padding-top: 10px;
     font-size: 30px;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     background: center;
     color: #707070;
+    text-align:  center;
+
 }
 
 .overlay{

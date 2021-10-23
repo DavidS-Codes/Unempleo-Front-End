@@ -3,6 +3,8 @@ import axios from "axios";
 import Loading from "./page-load";
 import pdf from "../icons/pdf.png";
 
+import { Link } from "react-router-dom";
+
 // function Profile() {
 const ProfileNonEdit = (props) => {
   const [user, setUser] = useState([]);
@@ -14,10 +16,14 @@ const ProfileNonEdit = (props) => {
       .get("http://localhost:8080/unempleo/persona/" + id)
       .then((res) => {
         // res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
-        res.data.fechaNacimiento = new Date(res.data.fechaNacimiento)
-        res.data.fechaNacimiento = new Intl.DateTimeFormat('es-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(res.data.fechaNacimiento);
-      
-        console.log(res.data.fechaNacimiento)
+        res.data.fechaNacimiento = new Date(res.data.fechaNacimiento);
+        res.data.fechaNacimiento = new Intl.DateTimeFormat("es-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).format(res.data.fechaNacimiento);
+
+        console.log(res.data.fechaNacimiento);
         dataProfile = res.data;
         axios
           .get(
@@ -57,7 +63,7 @@ const ProfileNonEdit = (props) => {
       });
   }
   useEffect(() => {
-    getProfile(15);
+    getProfile(10);
   }, []);
 
   return (
@@ -128,13 +134,12 @@ const ProfileNonEdit = (props) => {
               <div className="form-group row">
                 <label className="col-sm-4 col-form-label">Hoja de vida</label>
                 <div className="col-sm-8 text-center">
-                  <a href={user.hojaDeVida} target="_blank"  rel="noopener noreferrer">
-                    <img
-                      src={pdf}
-                      className="fluid"
-                      alt=""
-                      width="100px"
-                    />
+                  <a
+                    href={user.hojaDeVida}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={pdf} className="fluid" alt="" width="100px" />
                   </a>
                 </div>
               </div>
@@ -182,15 +187,13 @@ const ProfileNonEdit = (props) => {
       </div>
       <div className="row ">
         <div className="w-100 text-right mr-5 mb-2">
-          <a
-            name=""
-            id=""
+          <Link
+            to="/createOffer"
             className="btn btn-primary rounded button-publish-ofert"
-            href="/test"
-            role="button"
+            replace
           >
             Publicar oferta
-          </a>
+          </Link>
         </div>
       </div>
     </Loading>

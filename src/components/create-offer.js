@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import blankProfile from "../img/Blank-profile.png";
 import Modal from "./modal";
 import UploadImage from "./UploadImage";
@@ -32,18 +33,14 @@ const CreateOffer = (props) => {
   const formOferta = useRef(null);
   const formNombreOferta = useRef(null);
 
-
   const handleShowModalMensaje = () => {
     setModalMensaje(true);
-    
   };
 
   const handleCloseModalMensaje = () => {
     setModalMensaje(false);
     window.location = "/profile";
-  }
-
-
+  };
 
   //crear Id automaticamente
   function makeid(length) {
@@ -196,12 +193,11 @@ const CreateOffer = (props) => {
     setLoad(true);
     const url = "http://localhost:8080/unempleo/ofertas";
 
-    
     const data = {
       descripcionOferta: formOferta.current.description.value,
       fkEmpresa: formOferta.current.company.value,
-      fkArea:  formOferta.current.area.value,
-      fkPersonaCreador: user.pkPersona
+      fkArea: formOferta.current.area.value,
+      fkPersonaCreador: user.pkPersona,
       // nombreOferta: formNombreOferta.current.nombreOferta.value
       // foto: imgProfile,
     };
@@ -209,16 +205,18 @@ const CreateOffer = (props) => {
     axios
       .post(url, data)
       .then((response) => {
-        setModalMensajeTexto("Los datos han sido guardados exitosamente")
+        setModalMensajeTexto("Los datos han sido guardados exitosamente");
         // setLoad(false);
       })
       .then(() => {
         handleShowModalMensaje();
         setLoad(false);
       })
-      
+
       .catch((err) => {
-        setModalMensajeTexto("Ups..... ha surgido un problema, disculpanos las molestias, intentalo de nuevo mas tarde")
+        setModalMensajeTexto(
+          "Ups..... ha surgido un problema, disculpanos las molestias, intentalo de nuevo mas tarde"
+        );
         handleShowModalMensaje();
         setLoad(false);
       });
@@ -227,7 +225,7 @@ const CreateOffer = (props) => {
   return (
     <Loading loading={load}>
       <Modal showModal={modalMensaje} handleClose={handleCloseModalMensaje}>
-          {modalMensajeTexto}
+        {modalMensajeTexto}
       </Modal>
       <Modal showModal={modalImage} handleClose={handleCloseModalImage}>
         <UploadImage
@@ -394,15 +392,14 @@ const CreateOffer = (props) => {
               </div>
               <div className="row">
                 <div className="w-100 text-right mr-5 mb-2">
-                  <a
-                    name=""
-                    id=""
+                  <Link
+                    to="/profile"
                     className="btn btn-primary rounded button-red-custom-profile"
-                    href="#"
-                    role="button"
+                    replace
                   >
                     Cancelar
-                  </a>
+                  </Link>
+
                   <button
                     type="submit"
                     className="btn btn-primary rounded button-green-custom-profile ml-5"

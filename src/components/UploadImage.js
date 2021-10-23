@@ -8,7 +8,7 @@ const UploadImage = (props) => {
     // data for submit
     // console.log(imageList, addUpdateIndex);
     setImages(imageList);
-    if(imageList[0] != undefined){
+    if(imageList[0] !== undefined){
       props.dataFromImageComponent(imageList[0].data_url)
     }
     

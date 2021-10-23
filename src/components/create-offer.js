@@ -90,7 +90,7 @@ const CreateOffer = (props) => {
     setLoad(true);
     let nombreArea = formArea.current.nombreArea.value;
     console.log(nombreArea);
-    if (nombreArea != "") {
+    if (nombreArea !== "") {
       const url = "http://localhost:8080/unempleo/area";
       const data = {
         nombreArea: nombreArea,
@@ -117,7 +117,7 @@ const CreateOffer = (props) => {
     setLoad(true);
     let nombreEmpresa = formEmpresa.current.nombreEmpresa.value;
     console.log(nombreEmpresa);
-    if (nombreEmpresa != "") {
+    if (nombreEmpresa !== "") {
       const url = "http://localhost:8080/unempleo/empresa";
       const data = {
         nombreEmpresa: nombreEmpresa,
@@ -300,9 +300,9 @@ const CreateOffer = (props) => {
               className="border border-dark rounded-lg"
               alt=""
             />
-            <a onClick={handleShow} role="button">
+            <button onClick={handleShow} type="button" className="btn-icon-custom">
               <i className="fa fa-pencil-square-o fa-3x" aria-hidden="true"></i>
-            </a>
+            </button>
           </div>
           <div className="ml-5 mb-2">
             <b> Publicada por:</b> <u>{user.nombres + " " + user.apellidos}</u>
@@ -341,12 +341,11 @@ const CreateOffer = (props) => {
                   </select>
                 </div>
                 <div className="col-sm-4">
-                  <a
-                    href="#"
+                  <button
                     className="btn add-icon"
-                    role="button"
+                    type="button"
                     onClick={handleShowArea}
-                  ></a>
+                  ></button>
                 </div>
               </div>
               <div className="form-group row">
@@ -361,12 +360,11 @@ const CreateOffer = (props) => {
                   </select>
                 </div>
                 <div className="col-sm-4">
-                  <a
-                    href="#"
+                  <button
                     className="btn add-icon"
-                    role="button"
+                    type="button"
                     onClick={handleShowEmpresa}
-                  ></a>
+                  ></button>
                 </div>
               </div>
               <div className="form-group form-group-textarea-custom">
@@ -382,13 +380,13 @@ const CreateOffer = (props) => {
                   id="description"
                   rows="5"
                 ></textarea>
-                <a name="" id="" href="#" role="button">
+                {/* <a name="" id="" href="#" role="button">
                   <i
                     className="fa fa-pencil-square-o fa-2x"
                     width="500vw"
                     aria-hidden="true"
                   ></i>
-                </a>
+                </a> */}
               </div>
               <div className="row">
                 <div className="w-100 text-right mr-5 mb-2">

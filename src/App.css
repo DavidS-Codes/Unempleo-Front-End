@@ -211,6 +211,11 @@ label.col-form-label-data{
   bottom: 0;
   position: absolute;
 }
+.section-photo > button > i{
+  right:0;
+  bottom: 0;
+  position: absolute;
+}
 .name-offer{
   display: flex;
   padding: 2vw;
@@ -232,6 +237,11 @@ label.col-form-label-data{
   background-repeat: no-repeat;
   width: 3rem;
   height: 5rem;
+}
+
+.btn-icon-custom{
+  background-color: none;
+
 }
 
 

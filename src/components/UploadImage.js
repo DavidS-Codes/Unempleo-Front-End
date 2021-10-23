@@ -8,7 +8,10 @@ const UploadImage = (props) => {
     // data for submit
     // console.log(imageList, addUpdateIndex);
     setImages(imageList);
-    props.dataFromImageComponent(imageList[0].data_url)
+    if(imageList[0] != undefined){
+      props.dataFromImageComponent(imageList[0].data_url)
+    }
+    
   };
 
   return (
@@ -46,7 +49,7 @@ const UploadImage = (props) => {
                   <img
                     src={image.data_url}
                     alt=""
-                    width="500vw"
+                    width="200vw"
                     className="rounded mx-auto d-block"
                   />
                 </div>

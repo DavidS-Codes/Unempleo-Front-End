@@ -11,6 +11,7 @@ import ChangePasswordEmail from './components/change-password-email';
 import CreateOffer from './components/create-offer';
 import Offers from './components/offers';
 import Profile from './components/profile';
+import EmailForgotPassword from './components/email-forgot-password';
 
 function App() {
   return (
@@ -54,6 +55,9 @@ function App() {
           <LayoutUserLogged> 
             <Profile />
           </LayoutUserLogged>
+        </Route>
+        <Route path="/layoutEmail" > 
+        <EmailForgotPassword />
         </Route>
       </Router>
   );

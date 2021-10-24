@@ -1,0 +1,21 @@
+.first{
+    margin: auto;
+    width: 50%;
+    border: 1px solid;
+    padding: 10px;
+    text-align: center;
+}
+
+.buttonCustom{
+    min-width: 193px ;
+    min-height: 63px  ;
+    background-color: #E2EBAB ;
+    font-size: 20pt ;
+    color: #707070 ;
+    border-color: #E2EBAB ;
+    border: 1px solid;
+    text-decoration:none;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    margin-bottom: 5em;
+  }

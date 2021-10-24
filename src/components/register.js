@@ -11,7 +11,6 @@ const Register = (props) => {
   const submit = (e) => {
     e.preventDefault();
     let passVerified = verifyPassword();
-    console.log(passVerified);
     if (passVerified) {
       const url = "http://localhost:8080/unempleo/usuarios"
       const body = {

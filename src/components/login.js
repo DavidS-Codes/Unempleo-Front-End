@@ -61,7 +61,7 @@ export default class Login extends Component {
                     <a className="card-link">¿Olvido su contraseña?</a>
                   </Link> */}
                   {/* <a className="card-link" href="/login">¿Olvido su contraseña?</a> */}
-                  <Link to="/login" className="card-link" replace > ¿Olvido su contraseña?</Link>
+                  <Link to="/changePasswordEmail" className="card-link" replace > ¿Olvido su contraseña?</Link>
                 </div>
               </form>
             </div>

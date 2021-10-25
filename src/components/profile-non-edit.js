@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./page-load";
 import pdf from "../icons/pdf.png";
-
+import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
 // function Profile() {
@@ -12,8 +12,12 @@ const ProfileNonEdit = (props) => {
   const [load, setLoad] = useState(true);
   function getProfile(id) {
     let dataProfile;
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     axios
-      .get("http://localhost:8080/unempleo/persona/" + id)
+      .get("http://localhost:8080/unempleo/persona/" + id, config)
       .then((res) => {
         // res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         res.data.fechaNacimiento = new Date(res.data.fechaNacimiento);
@@ -28,21 +32,24 @@ const ProfileNonEdit = (props) => {
         axios
           .get(
             "http://localhost:8080/unempleo/tipoDocumento/" +
-              dataProfile["fkTipoDocumento"]
+              dataProfile["fkTipoDocumento"],
+            config
           )
           .then((res) => {
             dataProfile["fkTipoDocumento"] = res.data.nombreTipoDocumento;
             axios
               .get(
                 "http://localhost:8080/unempleo/preferenciasEmpleo/" +
-                  dataProfile["fkPreferenciasEmpleo"]
+                  dataProfile["fkPreferenciasEmpleo"],
+                config
               )
               .then((res) => {
                 dataProfile["fkPreferenciasEmpleo"] = res.data.situacionActual;
                 axios
                   .get(
                     "http://localhost:8080/unempleo/formacionAcademica/" +
-                      dataProfile["fkFormacionAcademica"]
+                      dataProfile["fkFormacionAcademica"],
+                    config
                   )
                   .then((res) => {
                     dataProfile["fkFormacionAcademica"] =
@@ -63,7 +70,7 @@ const ProfileNonEdit = (props) => {
       });
   }
   useEffect(() => {
-    getProfile(10);
+    getProfile(1);
   }, []);
 
   return (

@@ -1,20 +1,28 @@
 // import Cookies from "js-cookie";
-import React, { useState } from "react";
-import Navbar from "./header";
+import React, { useState,useEffect } from "react";
+
 import { Redirect } from "react-router";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
+import Navbar from "./header";
+import Modal from "./modal";
 
 const LayoutUserLogged = (props) => {
+  const [modalMensaje, setModalMensaje] = useState(false);
+  const [modalMensajeTexto, setModalMensajeTexto] = useState("");
   const [redirect, setRedirect] = useState(false);
   let offers = false;
 
-  const logOut = () => {
-    console.log("aca!!")
-  // function logOut() {
-    // Cookies.remove("token");
+  const handleCloseModalMensaje = () => {
+    setModalMensaje(false);
     setRedirect(true);
-    
-  }
+  };
+
+  const logOut = () => {
+    console.log("aca!!");
+    // function logOut() {
+    Cookies.remove("token");
+    setRedirect(true);
+  };
 
   function validatePath() {
     let url = window.location.pathname;
@@ -24,8 +32,22 @@ const LayoutUserLogged = (props) => {
     }
   }
 
-  // call function
-  validatePath();
+  function validateToken() {
+    
+    if (Cookies.get("token")) {
+      validatePath();
+    }else{
+      setModalMensajeTexto("Usted no tiene acceso para acceder a este recurso")
+      setModalMensaje(true);
+      
+    }
+  }
+
+  useEffect(() => {
+    validateToken();
+  }, []);
+
+  
 
   // function getOffers(){
   //   let url =
@@ -45,11 +67,14 @@ const LayoutUserLogged = (props) => {
   // }
 
   if (redirect) {
-    return <Redirect to="/login" />; 
+    return <Redirect to="/login" />;
   }
- 
+
   return (
     <>
+      <Modal showModal={modalMensaje} handleClose={handleCloseModalMensaje}>
+        {modalMensajeTexto}
+      </Modal>
       <Navbar logged={true} />
       <div className="row w-100 h-auto">
         {offers ? (

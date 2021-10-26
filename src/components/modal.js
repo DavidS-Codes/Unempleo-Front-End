@@ -12,20 +12,37 @@ class ModalComponent extends React.Component {
               <div className={styles.header}></div>
               <div className={styles.body}>{this.props.children}</div>
               <div className="text-center">
-                <button
-                  type="button"
-                  className="btn btn-primary rounded button-green-custom-profile mt-5"
-                  onClick={this.props.handleClose}
-                >
-                  Aceptar
-                </button>
+                {this.props.buttonCancelButton ? (
+                  <>
+                    <button
+                      type="button"
+                      className="btn btn-primary rounded button-red-custom-profile mt-5 mr-5"
+                      onClick={this.props.handleCloseCancel}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary rounded button-green-custom-profile mt-5"
+                      onClick={this.props.handleClose}
+                    >
+                      Aceptar
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-primary rounded button-green-custom-profile mt-5"
+                    onClick={this.props.handleClose}
+                  >
+                    Aceptar
+                  </button>
+                )}
               </div>
             </div>
           </div>
         ) : null}
       </>
-
-     
     );
   }
 }

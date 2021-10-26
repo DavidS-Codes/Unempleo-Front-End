@@ -245,6 +245,10 @@ label.col-form-label-data{
 }
 
 
+.img-thumbnail{
+height: 100% !important;
+}
+
 /* Styles to  change password view*/
 .text-change-password{
   font-size: 40pt;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import blankProfile from "../img/Blank-profile.png";
 import Modal from "./modal";
 import UploadImage from "./UploadImage";
@@ -26,8 +27,8 @@ const CreateOffer = (props) => {
   const [load, setLoad] = useState(true);
   const [dataImg, setDataImg] = useState();
 
-  // const [dataArea, setDataArea] = useState()
-  // const [dataEmpresa, setDataEmpresa] = useState();
+  const [dataArea, setDataArea] = useState([])
+  const [dataEmpresa, setDataEmpresa] = useState([]);
 
   const [user, setUser] = useState([]);
   const formOferta = useRef(null);
@@ -61,7 +62,7 @@ const CreateOffer = (props) => {
     let Image = dataImg.replace(/^data:image\/[a-z]+;base64,/, "");
     let temp = dataImg.split(";", 1);
     let TypeImage = temp[0].split(":", 2);
-
+  
     let url = "http://localhost:8080/unempleo/GoogleDrive/uploadFile";
     let bodyJson = {
       folderId: "1JB2UAsUJ3hRkkqBjspth01G7EKcpK4iO",
@@ -69,9 +70,13 @@ const CreateOffer = (props) => {
       name: makeid(10),
       base64Image: Image,
     };
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
 
     axios
-      .post(url, bodyJson)
+      .post(url, bodyJson,config)
       .then((data) => {
         setimgProfile("https://drive.google.com/uc?id=" + data.data.id);
         setLoad(false);
@@ -89,15 +94,21 @@ const CreateOffer = (props) => {
   const handleCloseModalArea = () => {
     setLoad(true);
     let nombreArea = formArea.current.nombreArea.value;
-    console.log(nombreArea);
+
     if (nombreArea !== "") {
+      
       const url = "http://localhost:8080/unempleo/area";
       const data = {
         nombreArea: nombreArea,
       };
+      const token = Cookies.get("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
       axios
-        .post(url, data)
+        .post(url, data, config)
         .then((response) => {
+          datosArea(config);
           setLoad(false);
         })
         .catch((err) => {
@@ -116,15 +127,20 @@ const CreateOffer = (props) => {
   const handleCloseModalEmpresa = () => {
     setLoad(true);
     let nombreEmpresa = formEmpresa.current.nombreEmpresa.value;
-    console.log(nombreEmpresa);
     if (nombreEmpresa !== "") {
       const url = "http://localhost:8080/unempleo/empresa";
       const data = {
         nombreEmpresa: nombreEmpresa,
       };
+      const token = Cookies.get("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
       axios
-        .post(url, data)
+        .post(url, data, config)
         .then((response) => {
+         
+          datosEmpresa(config)
           setLoad(false);
         })
         .catch((err) => {
@@ -143,33 +159,33 @@ const CreateOffer = (props) => {
     setDataImg(data);
   };
 
-  // const datosArea = () => {
-  //   axios
-  //   .get("http://localhost:8080/unempleo/area/")
-  //   .then((res) => {
-  //     setDataArea(res.data)
-  //     setLoad(false);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // }
-
-  // const datosEmpresa = () => {
-  //   axios
-  //   .get("http://localhost:8080/unempleo/empresa/")
-  //   .then((res) => {
-  //     setDataArea(res.data)
-  //     setLoad(false);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // }
-
-  function getProfile(id) {
+  function datosArea(config){
     axios
-      .get("http://localhost:8080/unempleo/persona/" + id)
+    .get("http://localhost:8080/unempleo/area/", config)
+    .then((res) => {
+      setDataArea(res.data)
+      setLoad(false);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  function datosEmpresa(config){
+    axios
+    .get("http://localhost:8080/unempleo/empresa/",config)
+    .then((res) => {
+      setDataEmpresa(res.data)
+      setLoad(false);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  function getProfile(id, config) {
+    axios
+      .get("http://localhost:8080/unempleo/persona/" + id, config)
       .then((res) => {
         res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         setUser(res.data);
@@ -181,10 +197,14 @@ const CreateOffer = (props) => {
   }
 
   useEffect(() => {
-    // datosArea()
-    // datosEmpresa()
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    datosArea(config);
+    datosEmpresa(config)
     setLoad(false);
-    getProfile(10);
+    getProfile(1,config);
   }, []);
 
   //function to submit offer
@@ -198,12 +218,16 @@ const CreateOffer = (props) => {
       fkEmpresa: formOferta.current.company.value,
       fkArea: formOferta.current.area.value,
       fkPersonaCreador: user.pkPersona,
-      // nombreOferta: formNombreOferta.current.nombreOferta.value
-      // foto: imgProfile,
+      nombreOferta: formNombreOferta.current.nombreOferta.value,
+      imagenOferta: imgProfile,
+    };
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
     };
 
     axios
-      .post(url, data)
+      .post(url, data,config)
       .then((response) => {
         setModalMensajeTexto("Los datos han sido guardados exitosamente");
         // setLoad(false);
@@ -212,7 +236,6 @@ const CreateOffer = (props) => {
         handleShowModalMensaje();
         setLoad(false);
       })
-
       .catch((err) => {
         setModalMensajeTexto(
           "Ups..... ha surgido un problema, disculpanos las molestias, intentalo de nuevo mas tarde"
@@ -335,9 +358,14 @@ const CreateOffer = (props) => {
                 </label>
                 <div className="col-sm-4">
                   <select className="form-control" name="area" id="area">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                    {dataArea.map((area) => (
+                      <option
+                        value={area.pkArea}
+                        key={area.pkArea}
+                      >
+                        {area.nombreArea}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="col-sm-4">
@@ -354,9 +382,14 @@ const CreateOffer = (props) => {
                 </label>
                 <div className="col-sm-4">
                   <select className="form-control" name="company" id="company">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                  {dataEmpresa.map((empresa) => (
+                      <option
+                        value={empresa.pkEmpresa}
+                        key={empresa.pkEmpresa}
+                      >
+                        {empresa.nombreEmpresa}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="col-sm-4">

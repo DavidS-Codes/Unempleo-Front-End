@@ -31,7 +31,7 @@ class Navbar extends React.Component {
         {this.props.logged ? (
           <nav className="navbar navbar-expand-lg p-0 navbar-logged">
             <div className="container-fluid">
-              <Link to="/login" className="navbar-brand" replace>
+              <Link to="/profile" className="navbar-brand" replace>
                 <img src={logo} className="img-fluid" alt="" />
               </Link>
               {/* <a href="/" className="navbar-brand">

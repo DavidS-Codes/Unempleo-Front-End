@@ -5,6 +5,7 @@ import Modal from "./modal";
 import UploadImage from "./UploadImage";
 import Loading from "./page-load";
 import pdf from "../icons/pdf.png";
+import Cookies from "js-cookie";
 
 // function Profile() {
 const ProfileEdit = (props) => {
@@ -21,9 +22,10 @@ const ProfileEdit = (props) => {
   const [modalSubmit, setModalSubmit] = useState(false);
   const [load, setLoad] = useState(true);
   const form = useRef(null);
-  function getTypeDni() {
+  function getTypeDni(config) {
+    
     axios
-      .get("http://localhost:8080/unempleo/tipoDocumento")
+      .get("http://localhost:8080/unempleo/tipoDocumento",config)
       .then((res) => {
         setTypeDni(res.data);
       })
@@ -32,9 +34,9 @@ const ProfileEdit = (props) => {
       });
   }
 
-  function getAcademics() {
+  function getAcademics(config) {
     axios
-      .get("http://localhost:8080/unempleo/formacionAcademica")
+      .get("http://localhost:8080/unempleo/formacionAcademica", config)
       .then((res) => {
         setAcademics(res.data);
       })
@@ -43,9 +45,9 @@ const ProfileEdit = (props) => {
       });
   }
 
-  function getPreferences() {
+  function getPreferences(config) {
     axios
-      .get("http://localhost:8080/unempleo/preferenciasEmpleo")
+      .get("http://localhost:8080/unempleo/preferenciasEmpleo", config)
       .then((res) => {
         setPreferences(res.data);
       })
@@ -54,9 +56,9 @@ const ProfileEdit = (props) => {
       });
   }
 
-  function getProfile(id) {
+  function getProfile(id, config) {
     axios
-      .get("http://localhost:8080/unempleo/persona/" + id)
+      .get("http://localhost:8080/unempleo/persona/" + id, config)
       .then((res) => {
         res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         setUser(res.data);
@@ -70,10 +72,14 @@ const ProfileEdit = (props) => {
       });
   }
   useEffect(() => {
-    getTypeDni();
-    getAcademics();
-    getPreferences();
-    getProfile(3);
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    getTypeDni(config);
+    getAcademics(config);
+    getPreferences(config);
+    getProfile(1,config);
   }, []);
 
   function makeid(length) {
@@ -95,7 +101,10 @@ const ProfileEdit = (props) => {
     let Image = dataImg.replace(/^data:image\/[a-z]+;base64,/, "");
     let temp = dataImg.split(";", 1);
     let TypeImage = temp[0].split(":", 2);
-
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     let url = "http://localhost:8080/unempleo/GoogleDrive/uploadFile";
     let bodyJson = {
       folderId: "1sgAXa0wOTD3rdRwV5F-xFWVeQryoz4nw",
@@ -105,7 +114,7 @@ const ProfileEdit = (props) => {
     };
 
     axios
-      .post(url, bodyJson)
+      .post(url, bodyJson, config)
       .then((data) => {
         setimgProfile("https://drive.google.com/uc?id=" + data.data.id);
         setLoad(false);
@@ -127,11 +136,15 @@ const ProfileEdit = (props) => {
   const submit = (e) => {
     e.preventDefault();
     setLoad(true);
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = "http://localhost:8080/unempleo/persona";
 
     const data = {
-      pkPersona: 15,
-      fkUsuario: 2,
+      pkPersona: 1,
+      fkUsuario: 1,
       noIdentificacion: form.current.noIdentificacion.value,
       fkPreferenciasEmpleo: form.current.fkPreferenciasEmpleo.value,
       fkTipoDocumento: form.current.fkTipoDocumento.value,
@@ -147,7 +160,7 @@ const ProfileEdit = (props) => {
     };
 
     axios
-      .put(url, data)
+      .put(url, data,config)
       .then((response) => {
         window.location = "/profile";
         setLoad(false);
@@ -175,9 +188,13 @@ const ProfileEdit = (props) => {
         name: makeid(10),
         base64Image: filebase64,
       };
+      const token = Cookies.get("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
       setLoad(true);
       axios
-        .post(url, bodyJson)
+        .post(url, bodyJson,config)
         .then((data) => {
           setFile("https://drive.google.com/uc?id=" + data.data.id);
           setLoad(false);
@@ -497,19 +514,7 @@ const ProfileEdit = (props) => {
           </div>
         </div>
       </div>
-      <div className="row ">
-        <div className="w-100 text-right mr-5 mb-2">
-          <a
-            name=""
-            id=""
-            className="btn btn-primary rounded button-publish-ofert"
-            href="/test"
-            role="button"
-          >
-            Publicar oferta
-          </a>
-        </div>
-      </div>
+     
     </Loading>
   );
 };

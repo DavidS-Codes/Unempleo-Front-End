@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import offersData from "../dataTest/data";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
+// import offersData from "../dataTest/data";
 import testImage from "../img/usuario.png";
 import Loading from "./page-load";
 import Modal from "./modal";
-import axios from "axios";
 
 // export default class Offers extends Component {
 const Offers = (props) => {
-
   const [load, setLoad] = useState(true);
   const [offers, setOffers] = useState([]);
-    const [modalMensaje, setModalMensaje] = useState(false);
+  const [modalMensaje, setModalMensaje] = useState(false);
   const [modalMensajeTexto, setModalMensajeTexto] = useState("");
 
   const handleCloseModalMensaje = () => {
@@ -18,59 +19,70 @@ const Offers = (props) => {
     window.location = "/profile";
   };
 
-  function getOffers() {
+  function getOffers(config) {
     const url = "http://localhost:8080/unempleo/ofertas";
-
     axios
-      .get(url)
+      .get(url, config)
       .then((response) => {
-        setModalMensajeTexto("Los datos han sido guardados exitosamente");
-        setLoad(false);
         setOffers(response.data);
+        
       })
-      .then(() => {
-        setModalMensaje(true)
-        setLoad(false);
-      })
-
       .catch((err) => {
         setModalMensajeTexto(
           "Ups..... ha surgido un problema, disculpanos las molestias, intentalo de nuevo mas tarde"
         );
-        setModalMensaje(true)
+        setModalMensaje(true);
+        setLoad(false);
+      })
+      .finally(() => {
         setLoad(false);
       });
   }
   useEffect(() => {
-    getOffers()
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    getOffers(config);
   }, []);
-
 
   return (
     <Loading loading={load}>
       <Modal showModal={modalMensaje} handleClose={handleCloseModalMensaje}>
         {modalMensajeTexto}
       </Modal>
-       {/* {offersData.map((offer, i) => ( */}
-      {offers.map((offer, i) => ( 
-        <div className="row m-5 border border-dark" key={i}>
-          <div className="col-md-2">
+      {offers.map((offer) => (
+        <div className="row m-5 border border-dark" key={offer.pkOferta}>
+          <div className="col-md-3">
             <img
-              src={testImage}
-              className="img-fluid img-thumbnail rounded-circle mb-2 mt-2 position-relative"
+              src={
+                !offer.imagenOferta.startsWith("https://drive.google.com")
+                  ? testImage
+                  : offer.imagenOferta
+              }
+              className="img-thumbnail rounded-circle position-relative"
               width="250vw"
               alt="..."
             />
           </div>
-          <div className="col-md-10">
+          <div className="col-md-9">
             <div className="row ml-2 mt-5">
-              <p className="font-weight-bold">{offer.oferta}</p>
+              <p className="font-weight-bold">{offer.nombreOferta}</p>
             </div>
             <div className="row ml-2">
-              <p> {offer.ubicacion}</p>
+              <p> {offer.descripcionOferta}</p>
             </div>
             <div className="row ml-2">
-              <p> {offer.tipo_contrato}</p>
+              <p> {"Empresa: " + offer.fkEmpresa + " área: " + offer.fkArea}</p>
+            </div>
+            <div className="row ml-2 float-right">
+              <Link
+                to={"/offer/" + offer.pkOferta}
+                className="btn btn-outline-secondary m-2 p-3"
+                replace
+              >
+                Ver Oferta
+              </Link>
             </div>
           </div>
         </div>

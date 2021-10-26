@@ -27,7 +27,7 @@ const ProfileNonEdit = (props) => {
           day: "2-digit",
         }).format(res.data.fechaNacimiento);
 
-        console.log(res.data.fechaNacimiento);
+        
         dataProfile = res.data;
         axios
           .get(

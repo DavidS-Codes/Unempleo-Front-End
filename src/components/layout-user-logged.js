@@ -21,6 +21,7 @@ const LayoutUserLogged = (props) => {
     console.log("aca!!");
     // function logOut() {
     Cookies.remove("token");
+    Cookies.remove("usuario");
     setRedirect(true);
   };
 

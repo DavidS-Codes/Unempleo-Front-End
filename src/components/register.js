@@ -1,51 +1,81 @@
 import React, { useState, useRef } from "react";
-import register from "../img/register.jpg";
-import axios from "axios";
-import Modal from "./modal";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
+import Modal from "./modal";
+import register from "../img/register.jpg";
+
 // export default class Register extends Component {
 const Register = (props) => {
   const form = useRef(null);
   const [modal, setModal] = useState(false);
   const [data, setDataModal] = useState("");
+
+  function login (){
+
+      const urlLogin = "http://localhost:8080/unempleo/oauth/token";
+
+      const params = new URLSearchParams();
+      params.append("username", form.current.email.value);
+      params.append("password", form.current.pass.value);
+      params.append("grant_type", "password");
+      axios
+      .post(urlLogin, params, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: "user",
+          password: "12345",
+        },
+      })
+      .then((response) => {
+        Cookies.set("token", response.data.access_token, { expires: 0.24 });
+        Cookies.set("usuario", response.data.pkUsuario, { expires: 0.24 })
+        setDataModal("La información ha sido guardada exitosamente");
+      setModal(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+  }
   const submit = (e) => {
     e.preventDefault();
     let passVerified = verifyPassword();
     if (passVerified) {
-      const url = "http://localhost:8080/unempleo/usuarios"
+      const url = "http://localhost:8080/unempleo/usuarios";
       const body = {
         nombreUsuario: form.current.email.value,
         contrasena: form.current.pass.value,
-        fkRol: 2,
+        fkRol: 1,
       };
-      axios.post(url, body)
-      .then(response => {
-        axios.post("http://localhost:8080/unempleo/persona", {
-          fkUsuario: response.data.pkUsuario,
-          noIdentificacion: response.data.pkUsuario,
-          fkPreferenciasEmpleo: 1,
-          fkTipoDocumento: 1,
-          fkFormacionAcademica: 1,
-          nombres: "",
-          apellidos: "",
-          fechaNacimiento: Date.now(),
-          correo: "",
-          perfilProfesional: "",
-          hojaDeVida: "",
-          experienciaLaboral: "",
-          foto: "",
+      axios
+        .post(url, body)
+        .then((response) => {
+          axios
+            .post("http://localhost:8080/unempleo/persona", {
+              fkUsuario: response.data.pkUsuario,
+              noIdentificacion: response.data.pkUsuario,
+              fkPreferenciasEmpleo: 1,
+              fkTipoDocumento: 1,
+              fkFormacionAcademica: 1,
+              nombres: "",
+              apellidos: "",
+              fechaNacimiento: Date.now(),
+              correo: "",
+              perfilProfesional: "",
+              hojaDeVida: "",
+              experienciaLaboral: "",
+              foto: "",
+            })
+            .then((response) => {
+              login();
+            })
         })
-        .then(response => {
-          setDataModal("La información ha sido guardada exitosamente")
-          setModal(true)
-        })
-        .catch(err => {
-          console.error(err)
-        })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+        .catch((err) => {
+          console.error(err);
+        });
     } else {
       setDataModal("Las contraseñas no coinciden");
       setModal(true);
@@ -61,11 +91,10 @@ const Register = (props) => {
 
   const handleClose = () => {
     setModal(false);
-    let verify = verifyPassword() 
+    let verify = verifyPassword();
     if (verify) {
       window.location = "/profile?edit=true";
     }
-    
   };
   // render() {
   return (

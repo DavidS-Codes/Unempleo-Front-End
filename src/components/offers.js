@@ -73,8 +73,12 @@ const Offers = (props) => {
               <p> {offer.descripcionOferta}</p>
             </div>
             <div className="row ml-2">
-              <p> {"Empresa: " + offer.fkEmpresa + " área: " + offer.fkArea}</p>
+              <pre className="font-weight-bold">Empresa</pre>
+              <pre>{ ' ' + offer.empresa.nombreEmpresa + ' '}</pre>
+              <pre className="font-weight-bold">Área </pre>
+              <pre>{ ' ' + offer.area.nombreArea + ' '}</pre>
             </div>
+            
             <div className="row ml-2 float-right">
               <Link
                 to={"/offer/" + offer.pkOferta}

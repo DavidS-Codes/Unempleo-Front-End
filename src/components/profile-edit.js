@@ -79,7 +79,7 @@ const ProfileEdit = (props) => {
     getTypeDni(config);
     getAcademics(config);
     getPreferences(config);
-    getProfile(1,config);
+    getProfile(Cookies.get("usuario"),config);
   }, []);
 
   function makeid(length) {

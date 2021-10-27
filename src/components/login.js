@@ -38,7 +38,8 @@ const Login = (props) => {
         },
       })
       .then((response) => {
-        Cookies.set("token", response.data.access_token, { expires: 1 });
+        Cookies.set("token", response.data.access_token, { expires: 0.24 });
+        Cookies.set("usuario", response.data.pkUsuario, { expires: 0.24 })
         setRedirect(true);
       })
       .catch((err) => {

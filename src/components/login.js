@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import login from "../img/login.jpg";
-import Modal from "./modal";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
+import login from "../img/login.jpg";
+import Modal from "./modal";
+
 const Login = (props) => {
   const [redirect, setRedirect] = useState(false);
   const [modalMensaje, setModalMensaje] = useState(false);

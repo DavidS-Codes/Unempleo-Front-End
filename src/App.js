@@ -10,6 +10,7 @@ import ChangePassword from './components/change-password';
 import ChangePasswordEmail from './components/change-password-email';
 import CreateOffer from './components/create-offer';
 import Offers from './components/offers';
+import OffersApplied from './components/offers-applied';
 import ViewOffer from './components/view-offer';
 import Profile from './components/profile';
 import EmailForgotPassword from './components/email-forgot-password';
@@ -60,6 +61,11 @@ function App() {
         <Route path="/offer/:id" > 
           <LayoutUserLogged> 
               <ViewOffer />
+          </LayoutUserLogged>
+        </Route>
+        <Route path="/offersApplied" > 
+          <LayoutUserLogged> 
+              <OffersApplied />
           </LayoutUserLogged>
         </Route>
         <Route path="/layoutEmail" > 

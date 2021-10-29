@@ -1,5 +1,5 @@
 // import Cookies from "js-cookie";
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 
 import { Redirect } from "react-router";
 import Cookies from "js-cookie";
@@ -44,28 +44,10 @@ const LayoutUserLogged = (props) => {
     }
   }
 
-  useEffect(() => {
-    validateToken();
-  }, []);
-
+  
+  validateToken()
   
 
-  // function getOffers(){
-  //   let url =
-  //   axios
-  //     .get(url)
-  //     .then((res) => {
-  //       res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
-  //       setUser(res.data);
-  //       if (res.data.foto !== "") {
-  //         setimgProfile(res.data.foto);
-  //       }
-  //       setLoad(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
 
   if (redirect) {
     return <Redirect to="/login" />;

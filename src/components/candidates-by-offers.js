@@ -21,7 +21,7 @@ const OffersCandidates = (props) => {
 
   function getOffers(config) {
       
-    const url = "http://localhost:8080/unempleo/ofertas/PersonaCreadora/"+Cookies.get("persona");
+    const url = "https://unempleo-api.azurewebsites.net/unempleo/ofertas/PersonaCreadora/"+Cookies.get("persona");
     axios
       .get(url, config)
       .then((response) => {

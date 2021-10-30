@@ -11,13 +11,13 @@ const ProfileNonEdit = (props) => {
 
   const [load, setLoad] = useState(true);
   function getProfile(id) {
-    // let dataProfile;
+    let dataProfile;
     const token = Cookies.get("token");
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
     axios
-      .get("http://localhost:8080/unempleo/persona/" + id, config)
+      .get("http://localhost:8080/unempleo/persona/filtrarUsuario/" + id, config)
       .then((res) => {
         // res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         res.data.fechaNacimiento = new Date(res.data.fechaNacimiento);
@@ -26,8 +26,21 @@ const ProfileNonEdit = (props) => {
           month: "2-digit",
           day: "2-digit",
         }).format(res.data.fechaNacimiento);
-        setUser(res.data);
-        setLoad(false)
+        dataProfile = res.data
+       
+          axios.get("http://localhost:8080/unempleo/usuarios/"+ id, config)
+          .then((res) => {
+            if (!Cookies.get("persona")){
+              Cookies.set("persona",dataProfile["pkPersona"], { expires: 0.24 });
+            }
+            dataProfile["fkUsuario"] = res.data.nombreUsuario
+            setUser(dataProfile);
+            setLoad(false)
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+       
       })
       .catch((err) => {
         console.log(err);
@@ -101,7 +114,7 @@ const ProfileNonEdit = (props) => {
                     Correo Electronico
                   </label>
                   <label className="col-sm-8 col-form-label-data border border-dark rounded  text-center">
-                    {user.correo}
+                    {user.fkUsuario}
                   </label>
                 </div>
                 <div className="form-group row">

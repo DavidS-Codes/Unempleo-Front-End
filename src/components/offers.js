@@ -48,6 +48,9 @@ const Offers = (props) => {
 
   return (
     <Loading loading={load}>
+      <div className="text-center">
+        <h1 className="label-custom">Ofertas vigentes</h1>
+      </div>
       <Modal showModal={modalMensaje} handleClose={handleCloseModalMensaje}>
         {modalMensajeTexto}
       </Modal>

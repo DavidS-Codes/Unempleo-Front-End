@@ -12,6 +12,7 @@ import CreateOffer from "./components/create-offer";
 import Offers from "./components/offers";
 import OffersApplied from "./components/offers-applied";
 import ViewOffer from "./components/view-offer";
+import OffersOwner from "./components/candidate-offers";
 import Profile from "./components/profile";
 import AdminReporter from "./components/admin";
 import EmailForgotPassword from "./components/email-forgot-password";
@@ -67,6 +68,11 @@ function App() {
       <Route path="/offersApplied">
         <LayoutUserLogged>
           <OffersApplied />
+        </LayoutUserLogged>
+      </Route>
+      <Route path="/offersOwner">
+        <LayoutUserLogged>
+          <OffersOwner />
         </LayoutUserLogged>
       </Route>
       <Route path="/adminReporter">

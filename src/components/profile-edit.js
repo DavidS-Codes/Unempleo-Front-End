@@ -23,9 +23,8 @@ const ProfileEdit = (props) => {
   const [load, setLoad] = useState(true);
   const form = useRef(null);
   function getTypeDni(config) {
-    
     axios
-      .get("http://localhost:8080/unempleo/tipoDocumento",config)
+      .get("http://localhost:8080/unempleo/tipoDocumento", config)
       .then((res) => {
         setTypeDni(res.data);
       })
@@ -57,15 +56,35 @@ const ProfileEdit = (props) => {
   }
 
   function getProfile(id, config) {
+    let dataProfile;
     axios
-      .get("http://localhost:8080/unempleo/persona/" + id, config)
+      .get(
+        "http://localhost:8080/unempleo/persona/filtrarUsuario/" + id,
+        config
+      )
       .then((res) => {
         res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
-        setUser(res.data);
-        if (res.data.foto !== "") {
-          setimgProfile(res.data.foto);
-        }
-        setLoad(false);
+        dataProfile = res.data;
+        axios
+          .get("http://localhost:8080/unempleo/usuarios/" + id, config)
+          .then((res) => {
+            dataProfile["fkUsuario"] = res.data.nombreUsuario;
+            if (!Cookies.get("persona")){
+              Cookies.set("persona",dataProfile["pkPersona"], { expires: 0.24 });
+            }
+            
+            setUser(dataProfile);
+            if (dataProfile["foto"] !== "") {
+              setimgProfile(dataProfile["foto"]);
+            }
+            if (dataProfile["hojaDeVida"] !== "") {
+              setFile(dataProfile["hojaDeVida"]);
+            }
+            setLoad(false);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -79,7 +98,7 @@ const ProfileEdit = (props) => {
     getTypeDni(config);
     getAcademics(config);
     getPreferences(config);
-    getProfile(Cookies.get("usuario"),config);
+    getProfile(Cookies.get("usuario"), config);
   }, []);
 
   function makeid(length) {
@@ -143,8 +162,8 @@ const ProfileEdit = (props) => {
     const url = "http://localhost:8080/unempleo/persona";
 
     const data = {
-      pkPersona: 1,
-      fkUsuario: 1,
+      pkPersona: user.pkPersona,
+      fkUsuario: Cookies.get("usuario"),
       noIdentificacion: form.current.noIdentificacion.value,
       fkPreferenciasEmpleo: form.current.fkPreferenciasEmpleo.value,
       fkTipoDocumento: form.current.fkTipoDocumento.value,
@@ -160,7 +179,7 @@ const ProfileEdit = (props) => {
     };
 
     axios
-      .put(url, data,config)
+      .put(url, data, config)
       .then((response) => {
         window.location = "/profile";
         setLoad(false);
@@ -175,9 +194,9 @@ const ProfileEdit = (props) => {
     var fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = function () {
-      let filebase64 = fileReader.result
-      
-      filebase64 =  filebase64.replace(/^data:application\/[a-z]+;base64,/,"");
+      let filebase64 = fileReader.result;
+
+      filebase64 = filebase64.replace(/^data:application\/[a-z]+;base64,/, "");
       let temp = fileReader.result.split(";", 1);
       let typePdf = temp[0].split(":", 2);
 
@@ -192,12 +211,11 @@ const ProfileEdit = (props) => {
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };
-      setLoad(true);
       axios
-        .post(url, bodyJson,config)
+        .post(url, bodyJson, config)
         .then((data) => {
           setFile("https://drive.google.com/uc?id=" + data.data.id);
-          setLoad(false);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -224,37 +242,24 @@ const ProfileEdit = (props) => {
                   dataFromImageComponent={sendDataFromImageComponent}
                 ></UploadImage>
               </Modal>
-              {/* <a role="button" onClick={handleShow}> */}
-                <i
-                  className="fa fa-pencil-square-o fa-3x"
-                  width="500vw"
-                  aria-hidden="true"
-                  onClick={handleShow}
-                ></i>
-              {/* </a> */}
+
+              <i
+                className="fa fa-pencil-square-o fa-3x"
+                width="500vw"
+                aria-hidden="true"
+                onClick={handleShow}
+              ></i>
             </div>
             <div>
               <p className="text-general-profile">Información basica</p>
             </div>
           </div>
         </div>
-        <div className="col-md-8">
-          {/* <div className="text-left">
-            <p className="text-name-profile mt-5">
-              {user.nombres + " " + user.apellidos + " "}
-            </p>
-          </div> */}
-        </div>
+        <div className="col-md-8"></div>
       </div>
       <div className="row ml-5 mr-5 mt-2 mb-5 border border-dark">
-        {/* <div className="w-100 text-right">
-          <a name="" id="" href="/test" role="button">
-            <i className="fa fa-pencil-square-o fa-3x" aria-hidden="true"></i>
-          </a>
-        </div> */}
         <div className="w-100">
           <div className="container form-personal-information">
-            {/* <form ref="form" onSubmit={submit}> */}
             <form ref={form} onSubmit={submit}>
               <div className="form-group row">
                 <label htmlFor="typeDni" className="col-sm-4 col-form-label">
@@ -346,7 +351,7 @@ const ProfileEdit = (props) => {
                     className="form-control"
                     id="email"
                     name="correo"
-                    defaultValue={user.correo}
+                    defaultValue={user.fkUsuario}
                   />
                 </div>
               </div>
@@ -358,13 +363,10 @@ const ProfileEdit = (props) => {
                 {file !== "nada" ? (
                   <div className="col-sm-8 text-center">
                     <a href={file} target="_blank" rel="noopener noreferrer">
-                      <img
-                        src={pdf}
-                        className="fluid"
-                        alt=""
-                        width="100px"
-                      />
+                      <img src={pdf} className="fluid" alt="" width="100px" />
                     </a>
+                    
+                    <button type="button" className="btn btn-primary"  onClick={()=> setFile("nada")}>Cambiar Hoja de vida</button>
                   </div>
                 ) : (
                   <div className="col-sm-8">
@@ -460,13 +462,6 @@ const ProfileEdit = (props) => {
                   name="experienciaLaboral"
                   defaultValue={user.experienciaLaboral}
                 ></textarea>
-                {/* <a name="" id="" href="/test" role="button">
-                  <i
-                    className="fa fa-pencil-square-o fa-2x"
-                    width="500vw"
-                    aria-hidden="true"
-                  ></i>
-                </a> */}
               </div>
               <div className="form-group form-group-textarea-custom">
                 <label
@@ -482,13 +477,6 @@ const ProfileEdit = (props) => {
                   name="perfilProfesional"
                   defaultValue={user.perfilProfesional}
                 ></textarea>
-                {/* <a name="" id="" href="/test" role="button">
-                  <i
-                    className="fa fa-pencil-square-o fa-2x"
-                    width="500vw"
-                    aria-hidden="true"
-                  ></i>
-                </a> */}
               </div>
               <div className="row">
                 <div className="w-100 text-right mr-5 mb-2">
@@ -514,7 +502,6 @@ const ProfileEdit = (props) => {
           </div>
         </div>
       </div>
-     
     </Loading>
   );
 };

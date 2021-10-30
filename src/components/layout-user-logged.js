@@ -1,6 +1,6 @@
 // import Cookies from "js-cookie";
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import Cookies from "js-cookie";
 import Navbar from "./header";
@@ -10,44 +10,35 @@ const LayoutUserLogged = (props) => {
   const [modalMensaje, setModalMensaje] = useState(false);
   const [modalMensajeTexto, setModalMensajeTexto] = useState("");
   const [redirect, setRedirect] = useState(false);
-  let offers = false;
+  const [offers, setOffers] = useState(false);
+  // let offers = false;
 
   const handleCloseModalMensaje = () => {
     setModalMensaje(false);
     setRedirect(true);
   };
 
-  const logOut = () => {
-    console.log("aca!!");
-    // function logOut() {
+  function logOut() {
     Cookies.remove("token");
     Cookies.remove("usuario");
     setRedirect(true);
-  };
-
-  function validatePath() {
-    let url = window.location.pathname;
-    if (url === "/offers") {
-      offers = true;
-      // getOffers();
-    }
   }
 
-  function validateToken() {
-    
+  useEffect(() => {
     if (Cookies.get("token")) {
-      validatePath();
-    }else{
-      setModalMensajeTexto("Usted no tiene acceso para acceder a este recurso")
+      let url = window.location.pathname;
+      if (url === "/offers") {
+        setOffers(true);
+      }else{
+        setOffers(false);
+      }
+    } else {
+      setModalMensajeTexto("Usted no tiene acceso para acceder a este recurso");
       setModalMensaje(true);
-      
     }
-  }
+  }, []);
 
-  
-  validateToken()
-  
-
+  // validateToken()
 
   if (redirect) {
     return <Redirect to="/login" />;
@@ -62,12 +53,20 @@ const LayoutUserLogged = (props) => {
       <div className="row w-100 h-auto">
         {offers ? (
           <div className="col-md-2 section-left-simple text-center position-static">
-            <button className="btn btn-outline-secondary m-2 p-3">
+            <Link
+              to="/offersApplied"
+              className="btn btn-outline-secondary m-2 p-3"
+              replace
+            >
               Consultar ofertas aplicadas
-            </button>
-            <button className="btn btn-outline-secondary m-2 p-3">
+            </Link>
+            <Link
+              to="/offersOwner"
+              className="btn btn-outline-secondary m-2 p-3"
+              replace
+            >
               Consultar candidatos por oferta{" "}
-            </button>
+            </Link>
             <button
               className="btn btn-outline-secondary ml-5 mb-2 fixed-bottom"
               onClick={logOut}
@@ -79,9 +78,13 @@ const LayoutUserLogged = (props) => {
           </div>
         ) : (
           <div className="col-md-2 section-left-simple text-center position-static">
-            <button className="btn btn-outline-secondary m-2">
+            <Link
+              to="/offersApplied"
+              className="btn btn-outline-secondary m-2"
+              replace
+            >
               Ver ofertas aplicadas
-            </button>
+            </Link>
             <button
               className="btn btn-outline-secondary ml-5 mb-2 fixed-bottom"
               onClick={logOut}

@@ -201,10 +201,11 @@ const CreateOffer = (props) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
+    const usuario = Cookies.get("persona");
     datosArea(config);
     datosEmpresa(config)
     setLoad(false);
-    getProfile(1,config);
+    getProfile(usuario,config);
   }, []);
 
   //function to submit offer

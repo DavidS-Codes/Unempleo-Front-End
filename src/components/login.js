@@ -105,7 +105,7 @@ const Login = (props) => {
               <div className="form-group links-custom text-center">
                 <Link to="/changePasswordEmail" className="card-link" replace>
                   {" "}
-                  ¿Olvido su contraseña? test azure 234234
+                  ¿Olvido su contraseña? 
                 </Link>
               </div>
             </form>

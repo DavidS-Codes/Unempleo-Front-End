@@ -13,7 +13,7 @@ const Register = (props) => {
 
   function login (){
 
-      const urlLogin = "https://unempleo-api.azurewebsites.net/unempleo/oauth/token";
+      const urlLogin = "https://unempleo-back-2-apim.azure-api.net/unempleo/oauth/token";
 
       const params = new URLSearchParams();
       params.append("username", form.current.email.value);
@@ -44,7 +44,7 @@ const Register = (props) => {
     e.preventDefault();
     let passVerified = verifyPassword();
     if (passVerified) {
-      const url = "https://unempleo-api.azurewebsites.net/unempleo/usuarios";
+      const url = "https://unempleo-back-2-apim.azure-api.net/unempleo/usuarios";
       const body = {
         nombreUsuario: form.current.email.value,
         contrasena: form.current.pass.value,
@@ -54,7 +54,7 @@ const Register = (props) => {
         .post(url, body)
         .then((response) => {
           axios
-            .post("https://unempleo-api.azurewebsites.net/unempleo/persona", {
+            .post("https://unempleo-back-2-apim.azure-api.net/unempleo/persona", {
               fkUsuario: response.data.pkUsuario,
               noIdentificacion: response.data.pkUsuario,
               fkPreferenciasEmpleo: 1,

@@ -20,7 +20,7 @@ const Offers = (props) => {
   };
 
   function getOffers(config) {
-    const url = "https://unempleo-api.azurewebsites.net/unempleo/ofertas";
+    const url = "https://unempleo-back-2-apim.azure-api.net/unempleo/ofertas";
     axios
       .get(url, config)
       .then((response) => {

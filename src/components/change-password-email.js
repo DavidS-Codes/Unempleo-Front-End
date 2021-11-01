@@ -30,7 +30,7 @@ const ChangePasswordEmail = (props) => {
 
     if(email !== ""){
       setLoad(true);
-      const url = "https://unempleo-api.azurewebsites.net/unempleo/EnviarCorreoAPI";
+      const url = "https://unempleo-back-2-apim.azure-api.net/unempleo/EnviarCorreoAPI";
       let html =  `
       <div>
       <div style="margin: auto;

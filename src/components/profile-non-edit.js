@@ -17,7 +17,7 @@ const ProfileNonEdit = (props) => {
       headers: { Authorization: `Bearer ${token}` },
     };
     axios
-      .get("https://unempleo-api.azurewebsites.net/unempleo/persona/filtrarUsuario/" + id, config)
+      .get("https://unempleo-back-2-apim.azure-api.net/unempleo/persona/filtrarUsuario/" + id, config)
       .then((res) => {
         // res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         res.data.fechaNacimiento = new Date(res.data.fechaNacimiento);
@@ -28,7 +28,7 @@ const ProfileNonEdit = (props) => {
         }).format(res.data.fechaNacimiento);
         dataProfile = res.data
        
-          axios.get("https://unempleo-api.azurewebsites.net/unempleo/usuarios/"+ id, config)
+          axios.get("https://unempleo-back-2-apim.azure-api.net/unempleo/usuarios/"+ id, config)
           .then((res) => {
             if (!Cookies.get("persona")){
               Cookies.set("persona",dataProfile["pkPersona"], { expires: 0.24 });

@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/Unempleo-Front-End/static/css/main.de542490.chunk.css",
+    "main.js": "/Unempleo-Front-End/static/js/main.89285f20.chunk.js",
+    "main.js.map": "/Unempleo-Front-End/static/js/main.89285f20.chunk.js.map",
+    "runtime-main.js": "/Unempleo-Front-End/static/js/runtime-main.fa55a399.js",
+    "runtime-main.js.map": "/Unempleo-Front-End/static/js/runtime-main.fa55a399.js.map",
+    "static/css/2.8ccad46a.chunk.css": "/Unempleo-Front-End/static/css/2.8ccad46a.chunk.css",
+    "static/js/2.db5078ca.chunk.js": "/Unempleo-Front-End/static/js/2.db5078ca.chunk.js",
+    "static/js/2.db5078ca.chunk.js.map": "/Unempleo-Front-End/static/js/2.db5078ca.chunk.js.map",
+    "index.html": "/Unempleo-Front-End/index.html",
+    "static/css/2.8ccad46a.chunk.css.map": "/Unempleo-Front-End/static/css/2.8ccad46a.chunk.css.map",
+    "static/css/main.de542490.chunk.css.map": "/Unempleo-Front-End/static/css/main.de542490.chunk.css.map",
+    "static/js/2.db5078ca.chunk.js.LICENSE.txt": "/Unempleo-Front-End/static/js/2.db5078ca.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/Unempleo-Front-End/static/media/add.fbafac51.svg",
+    "static/media/font-awesome.min.css": "/Unempleo-Front-End/static/media/fontawesome-webfont.f691f37e.woff",
+    "static/media/login.115ec632.jpg": "/Unempleo-Front-End/static/media/login.115ec632.jpg",
+    "static/media/register.def4d897.jpg": "/Unempleo-Front-End/static/media/register.def4d897.jpg",
+    "static/media/usuario.7a4b608b.png": "/Unempleo-Front-End/static/media/usuario.7a4b608b.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fa55a399.js",
+    "static/css/2.8ccad46a.chunk.css",
+    "static/js/2.db5078ca.chunk.js",
+    "static/css/main.de542490.chunk.css",
+    "static/js/main.89285f20.chunk.js"
+  ]
+}

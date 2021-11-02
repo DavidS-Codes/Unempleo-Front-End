@@ -36,7 +36,7 @@ const ViewOffer = (props) => {
     let pkOferta = pathArray[2];
     axios
       .get(
-        "https://unempleo-back-2-apim.azure-api.net/unempleo/detallePersonaOfertas/PersonaAplica/" +
+        "https://unempleo-back.azurewebsites.net/unempleo/detallePersonaOfertas/PersonaAplica/" +
           persona,
         config
       )
@@ -51,7 +51,7 @@ const ViewOffer = (props) => {
   };
 
   const handleCloseModalAplicarOferta = (config) => {
-    let url = "https://unempleo-back-2-apim.azure-api.net/unempleo/detallePersonaOfertas";
+    let url = "https://unempleo-back.azurewebsites.net/unempleo/detallePersonaOfertas";
 
     let data = {
       fkPersonaAplicar: Cookies.get("persona"),
@@ -80,7 +80,7 @@ const ViewOffer = (props) => {
     };
 
     axios
-      .get("https://unempleo-back-2-apim.azure-api.net/unempleo/ofertas/" + pathArray[2], config)
+      .get("https://unempleo-back.azurewebsites.net/unempleo/ofertas/" + pathArray[2], config)
       .then((response) => {
         if (
           !response.data.imagenOferta.startsWith("https://drive.google.com")

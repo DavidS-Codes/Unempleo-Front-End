@@ -21,7 +21,7 @@ const OffersOwner = (props) => {
 
   function getOffers(config) {
       
-    const url = "https://unempleo-back-2-apim.azure-api.net/unempleo/ofertas/PersonaCreadora/"+Cookies.get("persona");
+    const url = "https://unempleo-back.azurewebsites.net/unempleo/ofertas/PersonaCreadora/"+Cookies.get("persona");
     axios
       .get(url, config)
       .then((response) => {

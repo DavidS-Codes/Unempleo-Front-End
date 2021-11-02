@@ -21,7 +21,7 @@ const Login = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
-    const url = "https://unempleo-back-2-apim.azure-api.net/unempleo/oauth/token";
+    const url = "https://unempleo-back.azurewebsites.net/unempleo/oauth/token";
 
     const params = new URLSearchParams();
     params.append("username", form.current.email.value);

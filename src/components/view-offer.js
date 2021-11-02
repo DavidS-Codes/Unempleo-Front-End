@@ -52,10 +52,11 @@ const ViewOffer = (props) => {
 
   const handleCloseModalAplicarOferta = (config) => {
     let url = "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas";
-
+    console.log(offer.fkOferta)
     let data = {
       fkPersonaAplicar: Cookies.get("persona"),
       fkOferta: offer.pkOferta,
+     
     };
 
     axios

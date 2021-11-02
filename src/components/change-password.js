@@ -31,7 +31,7 @@ const ChangePassword = (props) => {
     setLoad(true);
     let passVerified = verifyPassword();
     if (passVerified) {
-      const url = "https://unempleo-back.azurewebsites.net/unempleo/usuarios";
+      const url = "https://unempleo-api.azurewebsites.net/unempleo/usuarios";
 
       const data = {
         nombre_usuario: formPasword.current.email.value,

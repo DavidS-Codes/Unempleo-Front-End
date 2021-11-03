@@ -112,7 +112,6 @@ const ViewOffer = (props) => {
   }
 
   const cancelOffer = () => {
-    console.log(pkDetPersonaOferta)
     const token = Cookies.get("token");
     const config = {
       headers: { Authorization: `Bearer ${token}` },

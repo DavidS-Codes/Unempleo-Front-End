@@ -11,6 +11,7 @@ const Login = (props) => {
   const [modalMensaje, setModalMensaje] = useState(false);
   const [modalMensajeTexto, setModalMensajeTexto] = useState("");
   const form = useRef(null);
+  const showPasswordIcon = useRef(null);
 
   const handleCloseModalMensaje = () => {
     setModalMensaje(false);
@@ -18,6 +19,15 @@ const Login = (props) => {
   const handleShowModalMensaje = () => {
     setModalMensaje(true);
   };
+  const showPassword = () => {
+    if (form.current.pass.type === "password") {
+      form.current.pass.type = "text";
+      showPasswordIcon.current.className = "fa fa-eye-slash";
+    } else {
+      form.current.pass.type = "password";
+      showPasswordIcon.current.className = "fa fa-eye";
+    }
+  }
 
   const submit = (e) => {
     e.preventDefault();
@@ -79,6 +89,8 @@ const Login = (props) => {
                 <label htmlFor="pass" className="label-custom">
                   Contraseña
                 </label>
+                
+                <div className="input-group">
                 <input
                   type="text"
                   name="pass"
@@ -87,6 +99,18 @@ const Login = (props) => {
                   placeholder=""
                   aria-describedby="helpId"
                 />
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={showPassword}
+                  >
+                    <i
+                      className="fa fa-eye-slash"
+                      aria-hidden="true"
+                      ref={showPasswordIcon}
+                    ></i>
+                  </button>
+                </div>
               </div>
               <div className="form-group text-center">
                 <button

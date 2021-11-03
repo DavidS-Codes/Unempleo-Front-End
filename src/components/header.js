@@ -14,7 +14,6 @@ class Navbar extends React.Component {
     let url = window.location.pathname;
 
     if (url === "/register") {
-      console.log("aca!!!");
       this.setState = {
         cssRegister: "nav-link header-link bottom",
       };

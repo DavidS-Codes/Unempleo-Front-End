@@ -25,7 +25,6 @@ const OffersCandidates = (props) => {
     axios
       .get(url, config)
       .then((response) => {
-          console.log(response.data)
         setOffers(response.data);
         
       })

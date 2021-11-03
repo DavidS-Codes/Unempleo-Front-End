@@ -285,3 +285,22 @@ height: 100% !important;
 .select-admin-reporter{
   width: 50% !important;
 }
+
+/* ViewOffer styles */
+
+.button-red-custom-cancel-offer{
+  color: #707070 !important; 
+  background-color: #ec9090 !important;
+  border-color: #ec9090 !important;
+  max-height: 47px !important;
+  height: 47px !important;
+  font-size: 20pt !important;
+}
+.button-red-custom-cancel-offer:hover, .button-red-custom-cancel-offer:active, .button-red-custom-cancel-offer:focus, .button-red-custom-cancel-offer:checked{
+  color: #707070 !important; 
+  background-color: #f06c72 !important;
+  border-color: #f06c72 !important;
+  max-height: 47px !important;
+  height: 47px !important;
+  font-size: 20pt !important;
+}

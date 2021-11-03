@@ -130,7 +130,6 @@ caso omiso a este correo, de lo contrario haga clic en Reestablecer Contraseña<
                   type="text"
                   name="email"
                   id="email"
-                  defaultValue="santispelaez@gmail.com"
                   className="form-control input-custom"
                   aria-describedby="helpId"
                 />

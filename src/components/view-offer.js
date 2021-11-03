@@ -18,6 +18,8 @@ const ViewOffer = (props) => {
   const [modalMensajeTexto, setModalMensajeTexto] = useState("");
   const [modalAplicarOferta, setModalAplicarOferta] = useState(false);
   const [ofertaAplicada, setOfertaAplicada] = useState(false);
+  const [ofertaCreadaByUser, setOfertaCreadaByUser] = useState(false)
+  const [pkDetPersonaOferta, setPkDetPersonaOferta] = useState("")
 
   const handleCloseModalMensaje = (handlerRedirect) => {
     setModalMensaje(false);
@@ -44,18 +46,24 @@ const ViewOffer = (props) => {
         response.data.map((oferta) => {
           if (oferta.oferta.pkOferta.toString() === pkOferta) {
             setOfertaAplicada(true);
+            setPkDetPersonaOferta(oferta.pkDetPersonaOferta)
           }
           return null;
         });
       });
   };
 
-  const handleCloseModalAplicarOferta = (config) => {
+  const handleCloseModalAplicarOferta = () => {
+
     let url = "http://localhost:8080/unempleo/detallePersonaOfertas";
 
     let data = {
       fkPersonaAplicar: Cookies.get("persona"),
       fkOferta: offer.pkOferta,
+    };
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
     };
 
     axios
@@ -78,6 +86,7 @@ const ViewOffer = (props) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
+    const persona = Cookies.get("persona");
 
     axios
       .get("http://localhost:8080/unempleo/ofertas/" + pathArray[2], config)
@@ -86,6 +95,9 @@ const ViewOffer = (props) => {
           !response.data.imagenOferta.startsWith("https://drive.google.com")
         ) {
           response.data.imagenOferta = testImage;
+        }
+        if(response.data.fkPersonaCreador.toString() === persona){
+          setOfertaCreadaByUser(true)
         }
         setOffer(response.data);
         setLoad(false);
@@ -98,6 +110,30 @@ const ViewOffer = (props) => {
         setLoad(false);
       });
   }
+
+  const cancelOffer = () => {
+    console.log(pkDetPersonaOferta)
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const data = {
+      "pkDetPersonaOferta": pkDetPersonaOferta
+    }
+    axios
+      .delete("http://localhost:8080/unempleo/detallePersonaOfertas", data ,config)
+      .then((response) => {
+        setModalMensajeTexto("Se ha cancelado la postulación correctamente");
+        setModalMensaje(true);
+      })
+      .catch((err) => {
+        setModalMensajeTexto(
+          "Ups..... ha surgido un problema, disculpanos las molestias, intentalo de nuevo mas tarde"
+        );
+        setModalMensaje(true);
+        setLoad(false);
+      });
+  };
   useEffect(() => {
     const token = Cookies.get("token");
     const config = {
@@ -198,10 +234,32 @@ const ViewOffer = (props) => {
                     >
                       Volver
                     </Link>
+                    <button
+                      type="button"
+                      className="btn rounded button-red-custom-cancel-offer"
+                      onClick={cancelOffer}
+                    >
+                      Cancelar aplicación
+                    </button>
                   </div>
                 </div>
               ) : (
-                <div className="row">
+                ofertaCreadaByUser ? (
+                  
+                  <div className="row">
+                  <div className="w-100 text-right mr-5 mb-2">
+                  <Link
+                      className="btn btn-primary rounded button-green-custom-profile"
+                      to="/offersOwner"
+                      role="button"
+                    >
+                      Volver
+                    </Link>
+                  </div>
+                </div>
+                
+                ) :(
+                  <div className="row">
                   <div className="w-100 text-right mr-5 mb-2">
                     <Link
                       className="btn btn-primary rounded button-red-custom-profile"
@@ -219,6 +277,8 @@ const ViewOffer = (props) => {
                     </button>
                   </div>
                 </div>
+                )
+               
               )}
             </div>
           </div>

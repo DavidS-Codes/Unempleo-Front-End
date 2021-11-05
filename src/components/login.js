@@ -31,7 +31,7 @@ const Login = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
-    const url = "http://localhost:8080/unempleo/oauth/token";
+    const url = "https://unempleo-api.azurewebsites.net/unempleo/oauth/token";
 
     const params = new URLSearchParams();
     params.append("username", form.current.email.value);
@@ -129,7 +129,7 @@ const Login = (props) => {
               <div className="form-group links-custom text-center">
                 <Link to="/changePasswordEmail" className="card-link" replace>
                   {" "}
-                  ¿Olvido su contraseña?
+                  ¿Olvido su contraseña? 1234
                 </Link>
               </div>
             </form>

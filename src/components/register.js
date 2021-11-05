@@ -16,11 +16,13 @@ const Register = (props) => {
   function login() {
     const urlLogin = "http://localhost:8080/unempleo/oauth/token";
 
+
     const params = new URLSearchParams();
     params.append("username", form.current.email.value);
     params.append("password", form.current.pass.value);
     params.append("grant_type", "password");
     axios
+
       .post(urlLogin, params, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -44,7 +46,7 @@ const Register = (props) => {
     e.preventDefault();
     let passVerified = verifyPassword();
     if (passVerified) {
-      const url = "http://localhost:8080/unempleo/usuarios";
+      const url = "https://unempleo-api.azurewebsites.net/unempleo/usuarios";
       const body = {
         nombreUsuario: form.current.email.value,
         contrasena: form.current.pass.value,
@@ -54,7 +56,7 @@ const Register = (props) => {
         .post(url, body)
         .then((response) => {
           axios
-            .post("http://localhost:8080/unempleo/persona", {
+            .post("https://unempleo-api.azurewebsites.net/unempleo/persona", {
               fkUsuario: response.data.pkUsuario,
               noIdentificacion: response.data.pkUsuario,
               fkPreferenciasEmpleo: 1,

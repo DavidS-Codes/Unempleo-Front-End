@@ -20,6 +20,7 @@ const OffersCandidates = (props) => {
   };
 
   function getOffers(config) {
+
     let pathArray = window.location.pathname.split("/");
     const url =
       "http://localhost:8080/unempleo/detallePersonaOfertas/filtrarOferta/" +

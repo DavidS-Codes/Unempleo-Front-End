@@ -18,8 +18,8 @@ const ViewOffer = (props) => {
   const [modalMensajeTexto, setModalMensajeTexto] = useState("");
   const [modalAplicarOferta, setModalAplicarOferta] = useState(false);
   const [ofertaAplicada, setOfertaAplicada] = useState(false);
-  const [ofertaCreadaByUser, setOfertaCreadaByUser] = useState(false)
-  const [pkDetPersonaOferta, setPkDetPersonaOferta] = useState("")
+  const [ofertaCreadaByUser, setOfertaCreadaByUser] = useState(false);
+  const [pkDetPersonaOferta, setPkDetPersonaOferta] = useState("");
 
   const handleCloseModalMensaje = (handlerRedirect) => {
     setModalMensaje(false);
@@ -46,7 +46,7 @@ const ViewOffer = (props) => {
         response.data.map((oferta) => {
           if (oferta.oferta.pkOferta.toString() === pkOferta) {
             setOfertaAplicada(true);
-            setPkDetPersonaOferta(oferta.pkDetPersonaOferta)
+            setPkDetPersonaOferta(oferta.pkDetPersonaOferta);
           }
           return null;
         });
@@ -54,7 +54,6 @@ const ViewOffer = (props) => {
   };
 
   const handleCloseModalAplicarOferta = () => {
-
     let url = "http://localhost:8080/unempleo/detallePersonaOfertas";
 
     let data = {
@@ -70,7 +69,9 @@ const ViewOffer = (props) => {
       .post(url, data, config)
       .then(() => {
         setModalAplicarOferta(false);
-        setModalMensajeTexto("Su información se ha guardado exitosamente");
+        setModalMensajeTexto(`Recuerde que al aplicar a esta oferta, se 
+        adjuntara su nombre completo, contacto y 
+        hoja de vida, por el cual se comunicaran con usted`);
         setModalMensaje(true);
       })
       .catch((err) => {
@@ -96,8 +97,8 @@ const ViewOffer = (props) => {
         ) {
           response.data.imagenOferta = testImage;
         }
-        if(response.data.fkPersonaCreador.toString() === persona){
-          setOfertaCreadaByUser(true)
+        if (response.data.fkPersonaCreador.toString() === persona) {
+          setOfertaCreadaByUser(true);
         }
         setOffer(response.data);
         setLoad(false);
@@ -116,13 +117,14 @@ const ViewOffer = (props) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const data = {
-      "pkDetPersonaOferta": pkDetPersonaOferta
-    }
     axios
-      .delete("http://localhost:8080/unempleo/detallePersonaOfertas", data ,config)
+      .delete(
+        "http://localhost:8080/unempleo/detallePersonaOfertas/" +
+          pkDetPersonaOferta,
+        config
+      )
       .then((response) => {
-        setModalMensajeTexto("Se ha cancelado la postulación correctamente");
+        setModalMensajeTexto("Se ha cancelado la postulación a la oferta correctamente");
         setModalMensaje(true);
       })
       .catch((err) => {
@@ -133,6 +135,7 @@ const ViewOffer = (props) => {
         setLoad(false);
       });
   };
+
   useEffect(() => {
     const token = Cookies.get("token");
     const config = {
@@ -143,7 +146,7 @@ const ViewOffer = (props) => {
   }, []);
 
   if (redirect) {
-    return <Redirect to="/offers" />;
+    return <Redirect to="/offers?filter=todo" />;
   }
 
   if (!load) {
@@ -172,7 +175,6 @@ const ViewOffer = (props) => {
             <div className="ml-5 mb-2">
               <b> Publicada por:</b>{" "}
               <u>{offer.persona.nombres + " " + offer.persona.apellidos}</u>
-              {/* <b> Publicada por:</b> <u>{"Test"}</u> */}
             </div>
           </div>
           <div className="col-md-5">
@@ -242,23 +244,28 @@ const ViewOffer = (props) => {
                     </button>
                   </div>
                 </div>
-              ) : (
-                ofertaCreadaByUser ? (
-                  
-                  <div className="row">
+              ) : ofertaCreadaByUser ? (
+                <div className="row ">
                   <div className="w-100 text-right mr-5 mb-2">
-                  <Link
-                      className="btn btn-primary rounded button-green-custom-profile"
+                    <Link
+                      className="btn btn-primary rounded button-green-custom-profile mr-2"
                       to="/offersOwner"
                       role="button"
                     >
                       Volver
                     </Link>
+                   
+                    <Link
+                      className="btn btn-primary rounded button-primary-custom-profile"
+                      to={"/editOffer/" + offer.pkOferta}
+                      role="button"
+                    >
+                      Modificar
+                    </Link>
                   </div>
                 </div>
-                
-                ) :(
-                  <div className="row">
+              ) : (
+                <div className="row">
                   <div className="w-100 text-right mr-5 mb-2">
                     <Link
                       className="btn btn-primary rounded button-red-custom-profile"
@@ -276,8 +283,6 @@ const ViewOffer = (props) => {
                     </button>
                   </div>
                 </div>
-                )
-               
               )}
             </div>
           </div>

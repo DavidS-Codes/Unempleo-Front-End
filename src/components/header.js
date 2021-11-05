@@ -8,17 +8,15 @@ class Navbar extends React.Component {
     this.state = {
       cssLogin: "nav-link header-link",
       cssRegister: "nav-link header-link",
-      value: "/offers?filter=todo"
+      value: "/offers?filter=todo",
     };
     this.handleDataChange = this.handleDataChange.bind(this);
   }
 
-
-  handleDataChange(event){
-    this.setState({value: event.target.value});
-  
+  handleDataChange(event) {
+    this.setState({ value: event.target.value });
   }
- 
+
   componentDidMount() {
     let url = window.location.pathname;
 
@@ -62,9 +60,10 @@ class Navbar extends React.Component {
                       className="form-control search-select"
                       name="search"
                       id="search"
-                      value={this.state.value} 
+                      value={this.state.value}
                       onChange={this.handleDataChange}
                     >
+                      <option value="/offers?filter=todo">Seleccione</option>
                       <option value="/offers?filter=offers">Ofertas</option>
                       <option value="/offers?filter=people">Personas</option>
                     </select>
@@ -75,7 +74,7 @@ class Navbar extends React.Component {
                         <Link
                           to={this.state.value}
                           className="btn btn-outline-secondary border-right-0 btn-search-custom"
-                          onClick={() =>   window.location.reload(false)}
+                          onClick={() =>   window.location.replace(this.state.value)}
                           replace
                         >
                           <i className="fa fa-search"></i>

@@ -92,7 +92,7 @@ const Login = (props) => {
                 
                 <div className="input-group">
                 <input
-                  type="text"
+                  type="password"
                   name="pass"
                   id="pass"
                   className="form-control input-custom"

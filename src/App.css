@@ -185,6 +185,28 @@ label.col-form-label-data{
   font-size: 20pt !important;
 }
 
+.button-primary-custom-profile{
+  color: #707070 !important; 
+  background-color: #90b8ec !important;
+  border-color: #4b72f1 !important;
+  max-width: 175px !important;
+  max-height: 47px !important;
+  width: 175px !important;
+  height: 47px !important;
+  font-size: 20pt !important;
+}
+.button-primary-custom-profile:hover, .button-primary-custom-profile:active, .button-primary-custom-profile:focus, .button-primary-custom-profile:checked{
+  color: #707070 !important; 
+  background-color: #90b8ec !important;
+  border-color: #4b72f1 !important;
+  max-width: 175px !important;
+  max-height: 47px !important;
+  width: 175px !important;
+  height: 47px !important;
+  font-size: 20pt !important;
+}
+
+
 .button-publish-ofert{
   background-color: #545ee8 !important;
   color: white !important;
@@ -300,6 +322,23 @@ height: 100% !important;
   color: #707070 !important; 
   background-color: #f06c72 !important;
   border-color: #f06c72 !important;
+  max-height: 47px !important;
+  height: 47px !important;
+  font-size: 20pt !important;
+}
+/* editOffer styles */
+.button-green-edit-offer{
+  color: #707070 !important; 
+  background-color: #e2ebab !important;
+  border-color: #e2ebab !important;
+  max-height: 47px !important;
+  height: 47px !important;
+  font-size: 20pt !important;
+}
+.button-green-edit-offer:hover, .button-green-edit-offer:active, .button-green-edit-offer:focus, .button-green-edit-offer:checked{
+  color: #707070 !important; 
+  background-color: #d0df70 !important;
+  border-color: #d0df70 !important;
   max-height: 47px !important;
   height: 47px !important;
   font-size: 20pt !important;

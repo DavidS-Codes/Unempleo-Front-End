@@ -21,6 +21,7 @@ const LayoutUserLogged = (props) => {
   function logOut() {
     Cookies.remove("token");
     Cookies.remove("usuario");
+    Cookies.remove("persona");
     setRedirect(true);
   }
 
@@ -79,11 +80,11 @@ const LayoutUserLogged = (props) => {
         ) : (
           <div className="col-md-2 section-left-simple text-center position-static">
             <Link
-              to="/offersApplied"
+              to="/offers?filter=todo"
               className="btn btn-outline-secondary m-2"
               replace
             >
-              Ver ofertas aplicadas
+              Ver ofertas
             </Link>
             <button
               className="btn btn-outline-secondary ml-5 mb-2 fixed-bottom"

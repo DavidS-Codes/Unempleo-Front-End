@@ -84,6 +84,13 @@ const OffersOwner = (props) => {
             </div>
             
             <div className="row ml-2 float-right">
+            <Link
+                to={"/candidates-by-offer/" + offer.pkOferta}
+                className="btn btn-outline-primary m-2 p-3"
+                replace
+              >
+                Ver candidatos
+              </Link>
               <Link
                 to={"/offer/" + offer.pkOferta}
                 className="btn btn-outline-secondary m-2 p-3"

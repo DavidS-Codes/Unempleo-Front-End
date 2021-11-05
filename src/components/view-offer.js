@@ -18,6 +18,8 @@ const ViewOffer = (props) => {
   const [modalMensajeTexto, setModalMensajeTexto] = useState("");
   const [modalAplicarOferta, setModalAplicarOferta] = useState(false);
   const [ofertaAplicada, setOfertaAplicada] = useState(false);
+  const [ofertaCreadaByUser, setOfertaCreadaByUser] = useState(false);
+  const [pkDetPersonaOferta, setPkDetPersonaOferta] = useState("");
 
   const handleCloseModalMensaje = (handlerRedirect) => {
     setModalMensaje(false);
@@ -44,26 +46,35 @@ const ViewOffer = (props) => {
         response.data.map((oferta) => {
           if (oferta.oferta.pkOferta.toString() === pkOferta) {
             setOfertaAplicada(true);
+            setPkDetPersonaOferta(oferta.pkDetPersonaOferta);
           }
           return null;
         });
       });
   };
 
-  const handleCloseModalAplicarOferta = (config) => {
-    let url = "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas";
-    console.log(offer.fkOferta)
+
+  const handleCloseModalAplicarOferta = () => {
+    let url = "http://localhost:8080/unempleo/detallePersonaOfertas";
+
+
     let data = {
       fkPersonaAplicar: Cookies.get("persona"),
       fkOferta: offer.pkOferta,
      
+    };
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
     };
 
     axios
       .post(url, data, config)
       .then(() => {
         setModalAplicarOferta(false);
-        setModalMensajeTexto("Su información se ha guardado exitosamente");
+        setModalMensajeTexto(`Recuerde que al aplicar a esta oferta, se 
+        adjuntara su nombre completo, contacto y 
+        hoja de vida, por el cual se comunicaran con usted`);
         setModalMensaje(true);
       })
       .catch((err) => {
@@ -79,6 +90,7 @@ const ViewOffer = (props) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
+    const persona = Cookies.get("persona");
 
     axios
       .get("https://unempleo-api.azurewebsites.net/unempleo/ofertas/" + pathArray[2], config)
@@ -87,6 +99,9 @@ const ViewOffer = (props) => {
           !response.data.imagenOferta.startsWith("https://drive.google.com")
         ) {
           response.data.imagenOferta = testImage;
+        }
+        if (response.data.fkPersonaCreador.toString() === persona) {
+          setOfertaCreadaByUser(true);
         }
         setOffer(response.data);
         setLoad(false);
@@ -99,6 +114,31 @@ const ViewOffer = (props) => {
         setLoad(false);
       });
   }
+
+  const cancelOffer = () => {
+    const token = Cookies.get("token");
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    axios
+      .delete(
+        "http://localhost:8080/unempleo/detallePersonaOfertas/" +
+          pkDetPersonaOferta,
+        config
+      )
+      .then((response) => {
+        setModalMensajeTexto("Se ha cancelado la postulación a la oferta correctamente");
+        setModalMensaje(true);
+      })
+      .catch((err) => {
+        setModalMensajeTexto(
+          "Ups..... ha surgido un problema, disculpanos las molestias, intentalo de nuevo mas tarde"
+        );
+        setModalMensaje(true);
+        setLoad(false);
+      });
+  };
+
   useEffect(() => {
     const token = Cookies.get("token");
     const config = {
@@ -109,7 +149,7 @@ const ViewOffer = (props) => {
   }, []);
 
   if (redirect) {
-    return <Redirect to="/offers" />;
+    return <Redirect to="/offers?filter=todo" />;
   }
 
   if (!load) {
@@ -138,7 +178,6 @@ const ViewOffer = (props) => {
             <div className="ml-5 mb-2">
               <b> Publicada por:</b>{" "}
               <u>{offer.persona.nombres + " " + offer.persona.apellidos}</u>
-              {/* <b> Publicada por:</b> <u>{"Test"}</u> */}
             </div>
           </div>
           <div className="col-md-5">
@@ -198,6 +237,33 @@ const ViewOffer = (props) => {
                       role="button"
                     >
                       Volver
+                    </Link>
+                    <button
+                      type="button"
+                      className="btn rounded button-red-custom-cancel-offer"
+                      onClick={cancelOffer}
+                    >
+                      Cancelar aplicación
+                    </button>
+                  </div>
+                </div>
+              ) : ofertaCreadaByUser ? (
+                <div className="row ">
+                  <div className="w-100 text-right mr-5 mb-2">
+                    <Link
+                      className="btn btn-primary rounded button-green-custom-profile mr-2"
+                      to="/offersOwner"
+                      role="button"
+                    >
+                      Volver
+                    </Link>
+                   
+                    <Link
+                      className="btn btn-primary rounded button-primary-custom-profile"
+                      to={"/editOffer/" + offer.pkOferta}
+                      role="button"
+                    >
+                      Modificar
                     </Link>
                   </div>
                 </div>

@@ -10,9 +10,11 @@ import ChangePassword from "./components/change-password";
 import ChangePasswordEmail from "./components/change-password-email";
 import CreateOffer from "./components/create-offer";
 import Offers from "./components/offers";
+import EditOffer from "./components/edit-offer";
 import OffersApplied from "./components/offers-applied";
 import ViewOffer from "./components/view-offer";
 import OffersOwner from "./components/candidate-offers";
+import OffersCandidates from "./components/candidates-by-offers"
 import Profile from "./components/profile";
 import AdminReporter from "./components/admin";
 import EmailForgotPassword from "./components/email-forgot-password";
@@ -65,6 +67,11 @@ function App() {
           <ViewOffer />
         </LayoutUserLogged>
       </Route>
+      <Route path="/editOffer/:id">
+        <LayoutUserLogged>
+          <EditOffer />
+        </LayoutUserLogged>
+      </Route>
       <Route path="/offersApplied">
         <LayoutUserLogged>
           <OffersApplied />
@@ -73,6 +80,11 @@ function App() {
       <Route path="/offersOwner">
         <LayoutUserLogged>
           <OffersOwner />
+        </LayoutUserLogged>
+      </Route>
+      <Route path="/candidates-by-offer/:id">
+        <LayoutUserLogged>
+          <OffersCandidates />
         </LayoutUserLogged>
       </Route>
       <Route path="/adminReporter">

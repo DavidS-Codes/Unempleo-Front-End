@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Unempleo",
+  "name": "Plataforma web Unempleo para buscar empleo en Une",
   "icons": [
     {
       "src": "favicon.ico",

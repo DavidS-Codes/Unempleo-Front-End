@@ -8,13 +8,19 @@ class Navbar extends React.Component {
     this.state = {
       cssLogin: "nav-link header-link",
       cssRegister: "nav-link header-link",
+      value: "/offers?filter=todo",
     };
+    this.handleDataChange = this.handleDataChange.bind(this);
   }
+
+  handleDataChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
   componentDidMount() {
     let url = window.location.pathname;
 
     if (url === "/register") {
-      console.log("aca!!!");
       this.setState = {
         cssRegister: "nav-link header-link bottom",
       };
@@ -34,9 +40,6 @@ class Navbar extends React.Component {
               <Link to="/profile" className="navbar-brand" replace>
                 <img src={logo} className="img-fluid" alt="" />
               </Link>
-              {/* <a href="/" className="navbar-brand">
-                <img src={logo} className="img-fluid" alt="" />
-              </a> */}
               <button
                 className="navbar-toggler"
                 type="button"
@@ -57,32 +60,30 @@ class Navbar extends React.Component {
                       className="form-control search-select"
                       name="search"
                       id="search"
+                      value={this.state.value}
+                      onChange={this.handleDataChange}
                     >
-                      <option default> Seleccione</option>
-                      <option>Ofertas</option>
-                      <option>Personas</option>
+                      <option value="/offers?filter=todo">Seleccione</option>
+                      <option value="/offers?filter=offers">Ofertas</option>
+                      <option value="/offers?filter=people">Personas</option>
                     </select>
                   </li>
                   <li className="nav-item ml-2">
                     <div className="input-group search-input ">
                       <span className="input-group-append">
                         <Link
-                          to="/offers"
+                          to={this.state.value}
                           className="btn btn-outline-secondary border-right-0 btn-search-custom"
+                          onClick={() =>   window.location.replace(this.state.value)}
                           replace
                         >
                           <i className="fa fa-search"></i>
                         </Link>
-                        {/* <button
-                          className="btn btn-outline-secondary border-right-0 btn-search-custom"
-                          type="button"
-                        >
-                          <i className="fa fa-search"></i>
-                        </button> */}
                       </span>
                       <input
                         className="form-control py-2 border-left-0 input-search-custom"
                         id="example-search-input"
+                        placeholder="Digite lo que desee buscar..."
                       />
                     </div>
                   </li>
@@ -96,9 +97,6 @@ class Navbar extends React.Component {
               <Link to="/login" className="navbar-brand" replace>
                 <img src={logo} className="img-fluid" alt="" />
               </Link>
-              {/* <Route path="/" className="navbar-brand">
-                
-              </Route> */}
 
               <button
                 className="navbar-toggler"
@@ -114,7 +112,6 @@ class Navbar extends React.Component {
               <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    {/* <a name="" id="" className={this.state.cssRegister} href="/register" role="button">Registrarse</a> */}
                     <Link
                       to="/register"
                       className={this.state.cssRegister}
@@ -129,10 +126,6 @@ class Navbar extends React.Component {
                       {" "}
                       Iniciar Sesión
                     </Link>
-                    {/* <a name="" id="" className={this.state.cssRegister} href="/login" role="button">Iniciar Sesión</a> */}
-                    {/* <Route path="/login" className={this.state.cssLogin}>
-                      
-                    </Route> */}
                   </li>
                 </ul>
               </div>

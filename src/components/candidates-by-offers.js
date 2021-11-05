@@ -23,7 +23,7 @@ const OffersCandidates = (props) => {
 
     let pathArray = window.location.pathname.split("/");
     const url =
-      "http://localhost:8080/unempleo/detallePersonaOfertas/filtrarOferta/" +
+      "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas/filtrarOferta/" +
       pathArray[2];
     axios
       .get(url, config)

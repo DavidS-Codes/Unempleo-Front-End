@@ -26,7 +26,7 @@ const Offers = (props) => {
     const params = Object.fromEntries(urlSearchParams.entries());
     let url;
     if (params.filter === "offers") {
-      url = "http://localhost:8080/unempleo/ofertas";
+      url = "https://unempleo-api.azurewebsites.net/unempleo/ofertas";
       setParams("offers");
       axios
         .get(url, config)
@@ -45,7 +45,7 @@ const Offers = (props) => {
         });
     } else if (params.filter === "people") {
       setParams("people");
-      url = "http://localhost:8080/unempleo/persona";
+      url = "https://unempleo-api.azurewebsites.net/unempleo/persona";
       axios
         .get(url, config)
         .then((response) => {
@@ -64,11 +64,11 @@ const Offers = (props) => {
     } else {
       setParams("todo");
       axios
-        .get("http://localhost:8080/unempleo/ofertas", config)
+        .get("https://unempleo-api.azurewebsites.net/unempleo/ofertas", config)
         .then((response) => {
           setOffers(response.data);
           axios
-            .get("http://localhost:8080/unempleo/persona", config)
+            .get("https://unempleo-api.azurewebsites.net/unempleo/persona", config)
             .then((response) => {
               setProfiles(response.data);
             })

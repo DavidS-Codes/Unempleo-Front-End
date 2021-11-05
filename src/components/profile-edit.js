@@ -91,6 +91,7 @@ const ProfileEdit = (props) => {
       });
   }
   useEffect(() => {
+    //add ths view
     const token = Cookies.get("token");
     const config = {
       headers: { Authorization: `Bearer ${token}` },

@@ -197,9 +197,7 @@ const EditOffer = (props) => {
     axios
       .get("https://unempleo-api.azurewebsites.net/unempleo/ofertas/" + id, config)
       .then((res) => {
-        if (res.data.imagenOferta.startsWith("https://drive.google.com")) {
-          setimgProfile(offer.imagenOferta);
-        }
+       
         setOffer(res.data);
       })
       .then(() => {
@@ -221,8 +219,9 @@ const EditOffer = (props) => {
 
     datosArea(config);
     datosEmpresa(config);
-    getProfile(usuario, config);
     getOffer(pkOferta, config);
+    getProfile(usuario, config);
+    
   }, []);
 
   //function to submit offer
@@ -338,7 +337,9 @@ const EditOffer = (props) => {
           <div className="col-md-5">
             <div className="section-photo mt-5 ml-5 mb-3">
               <img
-                src={imgProfile}
+                src={offer.imagenOferta.startsWith("https://drive.google.com") 
+                ? offer.imagenOferta
+                : imgProfile}
                 className="border border-dark rounded-lg"
                 alt=""
               />

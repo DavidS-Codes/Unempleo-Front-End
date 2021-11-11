@@ -55,7 +55,7 @@ const ViewOffer = (props) => {
 
 
   const handleCloseModalAplicarOferta = () => {
-    let url = "http://localhost:8080/unempleo/detallePersonaOfertas";
+    let url = "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas";
 
 
     let data = {
@@ -122,7 +122,7 @@ const ViewOffer = (props) => {
     };
     axios
       .delete(
-        "http://localhost:8080/unempleo/detallePersonaOfertas/" +
+        "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas/" +
           pkDetPersonaOferta,
         config
       )

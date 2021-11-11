@@ -66,7 +66,7 @@ const EditOffer = (props) => {
     let temp = dataImg.split(";", 1);
     let TypeImage = temp[0].split(":", 2);
 
-    let url = "http://localhost:8080/unempleo/GoogleDrive/uploadFile";
+    let url = "https://unempleo-api.azurewebsites.net/unempleo/GoogleDrive/uploadFile";
     let bodyJson = {
       folderId: "1JB2UAsUJ3hRkkqBjspth01G7EKcpK4iO",
       type: TypeImage[1],
@@ -99,7 +99,7 @@ const EditOffer = (props) => {
     let nombreArea = formArea.current.nombreArea.value;
 
     if (nombreArea !== "") {
-      const url = "http://localhost:8080/unempleo/area";
+      const url = "https://unempleo-api.azurewebsites.net/unempleo/area";
       const data = {
         nombreArea: nombreArea,
       };
@@ -130,7 +130,7 @@ const EditOffer = (props) => {
     setLoad(true);
     let nombreEmpresa = formEmpresa.current.nombreEmpresa.value;
     if (nombreEmpresa !== "") {
-      const url = "http://localhost:8080/unempleo/empresa";
+      const url = "https://unempleo-api.azurewebsites.net/unempleo/empresa";
       const data = {
         nombreEmpresa: nombreEmpresa,
       };
@@ -162,7 +162,7 @@ const EditOffer = (props) => {
 
   function datosArea(config) {
     axios
-      .get("http://localhost:8080/unempleo/area/", config)
+      .get("https://unempleo-api.azurewebsites.net/unempleo/area/", config)
       .then((res) => {
         setDataArea(res.data);
       })
@@ -173,7 +173,7 @@ const EditOffer = (props) => {
 
   function datosEmpresa(config) {
     axios
-      .get("http://localhost:8080/unempleo/empresa/", config)
+      .get("https://unempleo-api.azurewebsites.net/unempleo/empresa/", config)
       .then((res) => {
         setDataEmpresa(res.data);
       })
@@ -184,7 +184,7 @@ const EditOffer = (props) => {
 
   function getProfile(id, config) {
     axios
-      .get("http://localhost:8080/unempleo/persona/" + id, config)
+      .get("https://unempleo-api.azurewebsites.net/unempleo/persona/" + id, config)
       .then((res) => {
         res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         setUser(res.data);
@@ -195,7 +195,7 @@ const EditOffer = (props) => {
   }
   function getOffer(id, config) {
     axios
-      .get("http://localhost:8080/unempleo/ofertas/" + id, config)
+      .get("https://unempleo-api.azurewebsites.net/unempleo/ofertas/" + id, config)
       .then((res) => {
         if (res.data.imagenOferta.startsWith("https://drive.google.com")) {
           setimgProfile(offer.imagenOferta);
@@ -229,7 +229,7 @@ const EditOffer = (props) => {
   const submit = (e) => {
     e.preventDefault();
     setLoad(true);
-    const url = "http://localhost:8080/unempleo/ofertas";
+    const url = "https://unempleo-api.azurewebsites.net/unempleo/ofertas";
 
     const data = {
       pkOferta: offer.pkOferta,

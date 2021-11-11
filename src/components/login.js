@@ -8,6 +8,7 @@ import Modal from "./modal";
 
 const Login = (props) => {
   const [redirect, setRedirect] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState("/profile");
   const [modalMensaje, setModalMensaje] = useState(false);
   const [modalMensajeTexto, setModalMensajeTexto] = useState("");
   const form = useRef(null);
@@ -51,6 +52,9 @@ const Login = (props) => {
       .then((response) => {
         Cookies.set("token", response.data.access_token, { expires: 0.24 });
         Cookies.set("usuario", response.data.pkUsuario, { expires: 0.24 })
+        if (response.data.rol === "ADMIN"){
+          setRedirectUrl("/adminReporter")
+        }
         setRedirect(true);
       })
       .catch((err) => {
@@ -61,7 +65,7 @@ const Login = (props) => {
   };
 
   if (redirect) {
-    return <Redirect to="/profile" />;
+    return <Redirect to={redirectUrl} />;
   }
   return (
     <div className="row register-login-section ">
@@ -129,7 +133,7 @@ const Login = (props) => {
               <div className="form-group links-custom text-center">
                 <Link to="/changePasswordEmail" className="card-link" replace>
                   {" "}
-                  ¿Olvido su contraseña? 1234
+                  ¿Olvido su contraseña?
                 </Link>
               </div>
             </form>

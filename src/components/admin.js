@@ -3,8 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { Redirect } from "react-router";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import { pdf } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
+import axios from "axios";
 import logo from "../img/logo.png";
 import Modal from "./modal";
+import MyDocument from "./pdf";
 
 const AdminReporter = (props) => {
   const [modalMensaje, setModalMensaje] = useState(false);
@@ -15,10 +19,9 @@ const AdminReporter = (props) => {
   const report = useRef(null);
   const handleCloseModalMensaje = () => {
     setModalMensaje(false);
-    if(!Cookies.get("token")){
+    if (!Cookies.get("token")) {
       setRedirect(true);
     }
-   
   };
 
   const logOut = () => {
@@ -33,28 +36,70 @@ const AdminReporter = (props) => {
       setModalMensaje(true);
     }
   }
-  function GenerateFile(){
-    if(year.current.value === "0"){
+  async function GenerateFile() {
+    if (year.current.value === "0") {
       setModalMensajeTexto("Por favor Seleccione un año");
       setModalMensaje(true);
-    }else if(month.current.value === "0"){
+    } else if (month.current.value === "0") {
       setModalMensajeTexto("Por favor Seleccione un mes");
       setModalMensaje(true);
-    }else if(report.current.value === "0"){
+    } else if (report.current.value === "0") {
       setModalMensajeTexto("Por favor Seleccione un reporte");
       setModalMensaje(true);
+    } else {
+      const token = Cookies.get("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+      if (report.current.value === "1") {
+        const res = await axios.get(
+          "https://unempleo-api.azurewebsites.net/unempleo/usuarios/reporteUsuarios?anio=" +
+            year.current.value +
+            "&mes=" +
+            month.current.value,
+          config
+        );
+
+        if (res.data.length > 0) {
+          const doc = <MyDocument data={res.data} typeReport={"usuarios"} />;
+          const asPdf = pdf([]);
+          await asPdf.updateContainer(doc);
+          const blob = await asPdf.toBlob();
+          await saveAs(blob, "document.pdf");
+        } else {
+          setModalMensajeTexto(
+            "No se encontro información en las fechas indicadas"
+          );
+          setModalMensaje(true);
+        }
+      } else {
+        const res = await axios.get(
+          "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas/reporteOfertasAplicadas?anio=" +
+            year.current.value +
+            "&mes=" +
+            month.current.value,
+          config
+        );
+
+        if (res.data.length > 0) {
+          const doc = <MyDocument data={res.data} typeReport={"ofertas"} />;
+          const asPdf = pdf([]);
+          await asPdf.updateContainer(doc);
+          const blob = await asPdf.toBlob();
+          await saveAs(blob, "document.pdf");
+        } else {
+          setModalMensajeTexto(
+            "No se encontro información en las fechas indicadas"
+          );
+          setModalMensaje(true);
+        }
+      }
     }
-
-
-};
+  }
 
   useEffect(() => {
     validateToken();
   }, []);
-
-
- 
-
 
   if (redirect) {
     return <Redirect to="/login" />;
@@ -101,7 +146,7 @@ const AdminReporter = (props) => {
         </div>
 
         <div className="col-md-10 h-100">
-          <div className="m-5  border border-dark" >
+          <div className="m-5  border border-dark">
             <div className="container text-center ">
               <p className="label-custom">Generar reporte por Año y Mes</p>
 
@@ -110,7 +155,10 @@ const AdminReporter = (props) => {
                   <div className="row">
                     <label className="label-custom">AÑO</label>
 
-                    <select className="form-control mt-2 ml-2 select-admin-reporter" ref ={year}>
+                    <select
+                      className="form-control mt-2 ml-2 select-admin-reporter"
+                      ref={year}
+                    >
                       <option value="0">Seleccione</option>
                       <option>2021</option>
                       <option>2022</option>
@@ -122,7 +170,10 @@ const AdminReporter = (props) => {
                   <div className="row">
                     <label className="label-custom">MES</label>
 
-                    <select className="form-control mt-2 ml-2 select-admin-reporter"  ref ={month}>
+                    <select
+                      className="form-control mt-2 ml-2 select-admin-reporter"
+                      ref={month}
+                    >
                       <option value="0">Seleccione</option>
                       <option value="1">Enero</option>
                       <option value="2">Febrero</option>
@@ -143,19 +194,40 @@ const AdminReporter = (props) => {
                   <div className="row">
                     <label className="label-custom">REPORTE</label>
 
-                    <select className="form-control mt-2 ml-2 select-admin-reporter"  ref ={report}>
-                    <option value="0">Seleccione</option>
+                    <select
+                      className="form-control mt-2 ml-2 select-admin-reporter"
+                      ref={report}
+                    >
+                      <option value="0">Seleccione</option>
                       <option value="1">Cantidad usuarios registrados</option>
                       <option value="2">Cantidad ofertas aplicadas</option>
                     </select>
                   </div>
                 </div>
-
-
               </div>
 
               <div className="text-center mb-2">
-                <button className="btn btn-primary" type="button" onClick={GenerateFile}> Generar reporte</button>
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  onClick={async () => {
+                    await GenerateFile();
+                  }}
+                >
+                  {" "}
+                  Generar reporte
+                </button>
+              </div>
+              <div className="row">
+                {/* {generatePDF && (
+                  <PDFViewer
+                    showToolbar={true}
+                    width="100%"
+                    onLoadError={console.error}
+                  >
+                    <MyDocument data={dataPDF} typeReport={typePDF} />
+                  </PDFViewer>
+                )} */}
               </div>
             </div>
           </div>

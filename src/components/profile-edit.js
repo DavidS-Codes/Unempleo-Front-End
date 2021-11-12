@@ -136,6 +136,7 @@ const ProfileEdit = (props) => {
     axios
       .post(url, bodyJson, config)
       .then((data) => {
+        console.log(data)
         setimgProfile("https://drive.google.com/uc?id=" + data.data.id);
         setLoad(false);
       })

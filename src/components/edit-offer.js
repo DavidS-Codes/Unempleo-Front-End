@@ -65,7 +65,8 @@ const EditOffer = (props) => {
     let Image = dataImg.replace(/^data:image\/[a-z]+;base64,/, "");
     let temp = dataImg.split(";", 1);
     let TypeImage = temp[0].split(":", 2);
-
+    console.log("ACA ESTA LA IMAGEN")
+    console.log(Image)
     let url = "https://unempleo-api.azurewebsites.net/unempleo/GoogleDrive/uploadFile";
     let bodyJson = {
       folderId: "1JB2UAsUJ3hRkkqBjspth01G7EKcpK4iO",

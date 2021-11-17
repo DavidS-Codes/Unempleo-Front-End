@@ -15,7 +15,8 @@ class EmailForgotPassword extends React.Component {
         <p>Este proceso tiene valides por 24 horas. Si no realizo esta solicitud por favor haga 
 caso omiso a este correo, de lo contrario haga clic en Reestablecer Contraseña</p>
 <br/>
-        <button type="button" className={styles.buttonCustom}> Reestablecer contraseña</button>
+        <a href="https://unempleo.herokuapp.com/login" className={styles.buttonCustom}> Reestablecer contraseña</a>
+        <br/>
         </div>
         
       </div>

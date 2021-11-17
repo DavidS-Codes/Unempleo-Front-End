@@ -78,7 +78,7 @@ const Login = (props) => {
             <form ref={form} onSubmit={submit}>
               <div className="form-group">
                 <label htmlFor="email" className="label-custom">
-                  Correo electronico o usuario
+                  Correo electrónico
                 </label>
                 <input
                   type="text"

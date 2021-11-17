@@ -345,7 +345,7 @@ const ProfileEdit = (props) => {
               </div>
               <div className="form-group row">
                 <label htmlFor="email" className="col-sm-4 col-form-label">
-                  Correo Electronico
+                  Correo Electrónico
                 </label>
                 <div className="col-sm-8">
                   <input
@@ -354,6 +354,7 @@ const ProfileEdit = (props) => {
                     id="email"
                     name="correo"
                     defaultValue={user.fkUsuario}
+                    readOnly
                   />
                 </div>
               </div>

@@ -237,7 +237,7 @@ const EditOffer = (props) => {
       fkArea: formOferta.current.area.value,
       fkPersonaCreador: user.pkPersona,
       nombreOferta: formNombreOferta.current.nombreOferta.value,
-      imagenOferta: imgProfile,
+      imagenOferta: formOferta.current.img.src,
     };
     const token = Cookies.get("token");
     const config = {

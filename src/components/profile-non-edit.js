@@ -111,7 +111,7 @@ const ProfileNonEdit = (props) => {
                 </div>
                 <div className="form-group row">
                   <label className="col-sm-4 col-form-label">
-                    Correo Electronico
+                    Correo Electrónico
                   </label>
                   <label className="col-sm-8 col-form-label-data border border-dark rounded  text-center">
                     {user.fkUsuario}

@@ -164,7 +164,7 @@ const ViewOffer = (props) => {
           handleCloseCancel={handleCloseButtonCancelModalAplicarOferta}
           buttonCancelButton={true}
         >
-          ¿Esta seguro que desea aplicar a esta oferta?
+          ¿Está seguro que desea aplicar a esta oferta?
         </Modal>
         <div className="row border border-dark m-5">
           <div className="col-md-5">

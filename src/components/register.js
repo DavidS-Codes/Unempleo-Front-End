@@ -132,10 +132,10 @@ const Register = (props) => {
             <form ref={form} onSubmit={submit}>
               <div className="form-group">
                 <label htmlFor="email" className="label-custom">
-                  Correo electronico
+                  Correo electrónico
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   id="email"
                   className="form-control input-custom"

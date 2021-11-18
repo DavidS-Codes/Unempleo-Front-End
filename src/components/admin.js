@@ -53,7 +53,7 @@ const AdminReporter = (props) => {
       };
       if (report.current.value === "1") {
         const res = await axios.get(
-          "https://unempleo-api.azurewebsites.net/unempleo/usuarios/reporteUsuarios?anio=" +
+          "http://localhost:8080/unempleo/usuarios/reporteUsuarios?anio=" +
             year.current.value +
             "&mes=" +
             month.current.value,
@@ -74,7 +74,7 @@ const AdminReporter = (props) => {
         }
       } else {
         const res = await axios.get(
-          "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas/reporteOfertasAplicadas?anio=" +
+          "http://localhost:8080/unempleo/detallePersonaOfertas/reporteOfertasAplicadas?anio=" +
             year.current.value +
             "&mes=" +
             month.current.value,

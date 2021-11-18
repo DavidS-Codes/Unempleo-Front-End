@@ -22,7 +22,7 @@ const OffersApplied = (props) => {
   function getOffers(config) {
     let persona = Cookies.get("persona");
     const url =
-      "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas/PersonaAplica/" +
+      "http://localhost:8080/unempleo/detallePersonaOfertas/PersonaAplica/" +
       persona;
     axios
       .get(url, config)

@@ -24,7 +24,7 @@ const ProfileEdit = (props) => {
   const form = useRef(null);
   function getTypeDni(config) {
     axios
-      .get("https://unempleo-api.azurewebsites.net/unempleo/tipoDocumento", config)
+      .get("http://localhost:8080/unempleo/tipoDocumento", config)
       .then((res) => {
         setTypeDni(res.data);
       })
@@ -35,7 +35,7 @@ const ProfileEdit = (props) => {
 
   function getAcademics(config) {
     axios
-      .get("https://unempleo-api.azurewebsites.net/unempleo/formacionAcademica", config)
+      .get("http://localhost:8080/unempleo/formacionAcademica", config)
       .then((res) => {
         setAcademics(res.data);
       })
@@ -46,7 +46,7 @@ const ProfileEdit = (props) => {
 
   function getPreferences(config) {
     axios
-      .get("https://unempleo-api.azurewebsites.net/unempleo/preferenciasEmpleo", config)
+      .get("http://localhost:8080/unempleo/preferenciasEmpleo", config)
       .then((res) => {
         setPreferences(res.data);
       })
@@ -59,14 +59,14 @@ const ProfileEdit = (props) => {
     let dataProfile;
     axios
       .get(
-        "https://unempleo-api.azurewebsites.net/unempleo/persona/filtrarUsuario/" + id,
+        "http://localhost:8080/unempleo/persona/filtrarUsuario/" + id,
         config
       )
       .then((res) => {
         res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         dataProfile = res.data;
         axios
-          .get("https://unempleo-api.azurewebsites.net/unempleo/usuarios/" + id, config)
+          .get("http://localhost:8080/unempleo/usuarios/" + id, config)
           .then((res) => {
             dataProfile["fkUsuario"] = res.data.nombreUsuario;
             if (!Cookies.get("persona")){
@@ -125,7 +125,7 @@ const ProfileEdit = (props) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    let url = "https://unempleo-api.azurewebsites.net/unempleo/GoogleDrive/uploadFile";
+    let url = "http://localhost:8080/unempleo/GoogleDrive/uploadFile";
     let bodyJson = {
       folderId: "1sgAXa0wOTD3rdRwV5F-xFWVeQryoz4nw",
       type: TypeImage[1],
@@ -161,7 +161,7 @@ const ProfileEdit = (props) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const url = "https://unempleo-api.azurewebsites.net/unempleo/persona";
+    const url = "http://localhost:8080/unempleo/persona";
 
     const data = {
       pkPersona: user.pkPersona,
@@ -202,7 +202,7 @@ const ProfileEdit = (props) => {
       let temp = fileReader.result.split(";", 1);
       let typePdf = temp[0].split(":", 2);
 
-      let url = "https://unempleo-api.azurewebsites.net/unempleo/GoogleDrive/uploadFile";
+      let url = "http://localhost:8080/unempleo/GoogleDrive/uploadFile";
       let bodyJson = {
         folderId: "1F3uE2KGiGTRnXR8gzidSW88W13QnpvEa",
         type: typePdf[1],

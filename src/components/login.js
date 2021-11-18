@@ -32,7 +32,7 @@ const Login = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
-    const url = "https://unempleo-api.azurewebsites.net/unempleo/oauth/token";
+    const url = "http://localhost:8080/unempleo/oauth/token";
 
     const params = new URLSearchParams();
     params.append("username", form.current.email.value);

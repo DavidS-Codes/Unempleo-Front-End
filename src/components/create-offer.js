@@ -63,7 +63,7 @@ const CreateOffer = (props) => {
     let temp = dataImg.split(";", 1);
     let TypeImage = temp[0].split(":", 2);
   
-    let url = "https://unempleo-api.azurewebsites.net/unempleo/GoogleDrive/uploadFile";
+    let url = "http://localhost:8080/unempleo/GoogleDrive/uploadFile";
     let bodyJson = {
       folderId: "1JB2UAsUJ3hRkkqBjspth01G7EKcpK4iO",
       type: TypeImage[1],
@@ -97,7 +97,7 @@ const CreateOffer = (props) => {
 
     if (nombreArea !== "") {
       
-      const url = "https://unempleo-api.azurewebsites.net/unempleo/area";
+      const url = "http://localhost:8080/unempleo/area";
       const data = {
         nombreArea: nombreArea,
       };
@@ -128,7 +128,7 @@ const CreateOffer = (props) => {
     setLoad(true);
     let nombreEmpresa = formEmpresa.current.nombreEmpresa.value;
     if (nombreEmpresa !== "") {
-      const url = "https://unempleo-api.azurewebsites.net/unempleo/empresa";
+      const url = "http://localhost:8080/unempleo/empresa";
       const data = {
         nombreEmpresa: nombreEmpresa,
       };
@@ -161,7 +161,7 @@ const CreateOffer = (props) => {
 
   function datosArea(config){
     axios
-    .get("https://unempleo-api.azurewebsites.net/unempleo/area/", config)
+    .get("http://localhost:8080/unempleo/area/", config)
     .then((res) => {
       setDataArea(res.data)
       setLoad(false);
@@ -173,7 +173,7 @@ const CreateOffer = (props) => {
 
   function datosEmpresa(config){
     axios
-    .get("https://unempleo-api.azurewebsites.net/unempleo/empresa/",config)
+    .get("http://localhost:8080/unempleo/empresa/",config)
     .then((res) => {
       setDataEmpresa(res.data)
       setLoad(false);
@@ -185,7 +185,7 @@ const CreateOffer = (props) => {
 
   function getProfile(id, config) {
     axios
-      .get("https://unempleo-api.azurewebsites.net/unempleo/persona/" + id, config)
+      .get("http://localhost:8080/unempleo/persona/" + id, config)
       .then((res) => {
         res.data.fechaNacimiento = res.data.fechaNacimiento.substr(0, 10);
         setUser(res.data);
@@ -212,7 +212,7 @@ const CreateOffer = (props) => {
   const submit = (e) => {
     e.preventDefault();
     setLoad(true);
-    const url = "https://unempleo-api.azurewebsites.net/unempleo/ofertas";
+    const url = "http://localhost:8080/unempleo/ofertas";
 
     const data = {
       descripcionOferta: formOferta.current.description.value,

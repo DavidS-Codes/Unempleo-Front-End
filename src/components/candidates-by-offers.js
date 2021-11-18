@@ -20,16 +20,15 @@ const OffersCandidates = (props) => {
   };
 
   function getOffers(config) {
-
     let pathArray = window.location.pathname.split("/");
     const url =
-      "http://localhost:8080/unempleo/detallePersonaOfertas/filtrarOferta/" +
+      "https://unempleo-api.azurewebsites.net/unempleo/detallePersonaOfertas/filtrarOferta/" +
       pathArray[2];
     axios
       .get(url, config)
       .then((response) => {
         setProfiles(response.data);
-        console.log(response.data);
+        setLoad(false);
       })
       .catch((err) => {
         setModalMensajeTexto(
@@ -38,9 +37,6 @@ const OffersCandidates = (props) => {
         setModalMensaje(true);
         setLoad(false);
       })
-      .finally(() => {
-        setLoad(false);
-      });
   }
   useEffect(() => {
     const token = Cookies.get("token");
@@ -50,67 +46,73 @@ const OffersCandidates = (props) => {
     getOffers(config);
   }, []);
 
-  return (
-    <Loading loading={load}>
-      <div className="text-center">
-        <h1 className="label-custom">Personas que se postularon a la oferta</h1>
-      </div>
-      <Modal showModal={modalMensaje} handleClose={handleCloseModalMensaje}>
-        {modalMensajeTexto}
-      </Modal>
-      {profiles.length === 0 ? (
-        <div className="row m-5">
-          No se han registrado personas en la oferta
+  if (!load) {
+    return (
+      <>
+        <div className="text-center">
+          <h1 className="label-custom">
+            Personas que se postularon a la oferta
+          </h1>
         </div>
-      ) : (
-        profiles.map((profile) => (
-          <div className="row m-5 border border-dark" key={profile.pkPersona}>
-            <div className="col-md-3">
-              <img
-                src={
-                  !profile.foto.startsWith("https://drive.google.com")
-                    ? testImage
-                    : profile.foto
-                }
-                className="img-thumbnail rounded-circle position-relative"
-                width="250vw"
-                alt="..."
-              />
-            </div>
-            <div className="col-md-9">
-              <div className="row ml-2 mt-5">
-                <p className="font-weight-bold">
-                  {profile.nombres + " " + profile.apellidos}
-                </p>
-              </div>
-              <div className="row ml-2">
-                <p>
-                  <b> Perfil profesional:</b> {" " + profile.perfilProfesional}
-                </p>
-              </div>
-              <div className="row ml-2">
-                <p>
-                  <b> Experiencia laboral:</b>{" "}
-                  {" " + profile.experienciaLaboral}
-                </p>
-              </div>
-
-              <div className="row ml-2 float-right">
-                <a
-                  href={profile.hojaDeVida}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline-secondary m-2 p-3"
-                >
-                  Descargar hoja de vida
-                </a>
-              </div>
-            </div>
+        <Modal showModal={modalMensaje} handleClose={handleCloseModalMensaje}>
+          {modalMensajeTexto}
+        </Modal>
+        {profiles.length === 0 ? (
+          <div className="row m-5">
+            No se han registrado personas en la oferta
           </div>
-        ))
-      )}
-    </Loading>
-  );
+        ) : (
+          profiles.map((profile) => (
+            <div className="row m-5 border border-dark" key={profile.persona.pkPersona}>
+              <div className="col-md-3">
+                <img
+                  src={
+                    !profile.persona.foto.startsWith("https://drive.google.com")
+                      ? testImage
+                      : profile.persona.foto
+                  }
+                  className="img-thumbnail rounded-circle position-relative"
+                  width="250vw"
+                  alt="..."
+                />
+              </div>
+              <div className="col-md-9">
+                <div className="row ml-2 mt-5">
+                  <p className="font-weight-bold">
+                    {profile.persona.nombres + " " + profile.persona.apellidos}
+                  </p>
+                </div>
+                <div className="row ml-2">
+                  <p>
+                    <b> Perfil profesional:</b>{" "}
+                    {" " + profile.persona.perfilProfesional}
+                  </p>
+                </div>
+                <div className="row ml-2">
+                  <p>
+                    <b> Experiencia laboral:</b>{" "}
+                    {" " + profile.persona.experienciaLaboral}
+                  </p>
+                </div>
+
+                <div className="row ml-2 float-right">
+                  <a
+                    href={profile.persona.hojaDeVida}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline-secondary m-2 p-3"
+                  >
+                    Descargar hoja de vida
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </>
+    );
+  }
+  return <Loading loading={load}></Loading>;
 };
 
 export default OffersCandidates;

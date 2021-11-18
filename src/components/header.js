@@ -80,11 +80,11 @@ class Navbar extends React.Component {
                           <i className="fa fa-search"></i>
                         </Link>
                       </span>
-                      <input
+                      {/* <input
                         className="form-control py-2 border-left-0 input-search-custom"
                         id="example-search-input"
                         placeholder="Digite lo que desee buscar..."
-                      />
+                      /> */}
                     </div>
                   </li>
                 </ul>

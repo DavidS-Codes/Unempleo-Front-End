@@ -29,6 +29,7 @@ const OffersCandidates = (props) => {
       .then((response) => {
         setProfiles(response.data);
         console.log(response.data);
+        setLoad(false);
       })
       .catch((err) => {
         setModalMensajeTexto(
@@ -37,9 +38,6 @@ const OffersCandidates = (props) => {
         setModalMensaje(true);
         setLoad(false);
       })
-      .finally(() => {
-        setLoad(false);
-      });
   }
   useEffect(() => {
     const token = Cookies.get("token");

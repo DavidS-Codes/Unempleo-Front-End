@@ -29,7 +29,7 @@ const OffersCandidates = (props) => {
       .get(url, config)
       .then((response) => {
         setProfiles(response.data);
-        console.log(response.data);
+        console.log(response.data)
       })
       .catch((err) => {
         setModalMensajeTexto(
@@ -68,9 +68,10 @@ const OffersCandidates = (props) => {
             <div className="col-md-3">
               <img
                 src={
-                  !profile.foto.startsWith("https://drive.google.com")
-                    ? testImage
-                    : profile.foto
+                  testImage
+                  // !profile.foto.startsWith("https://drive.google.com")
+                  //   ? testImage
+                  //   : profile.foto
                 }
                 className="img-thumbnail rounded-circle position-relative"
                 width="250vw"

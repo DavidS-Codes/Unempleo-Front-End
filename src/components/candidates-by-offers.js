@@ -64,7 +64,7 @@ const OffersCandidates = (props) => {
           </div>
         ) : (
           profiles.map((profile) => (
-            <div className="row m-5 border border-dark" key={profile.pkPersona}>
+            <div className="row m-5 border border-dark" key={profile.persona.pkPersona}>
               <div className="col-md-3">
                 <img
                   src={
@@ -81,25 +81,25 @@ const OffersCandidates = (props) => {
               <div className="col-md-9">
                 <div className="row ml-2 mt-5">
                   <p className="font-weight-bold">
-                    {profile.nombres + " " + profile.apellidos}
+                    {profile.persona.nombres + " " + profile.persona.apellidos}
                   </p>
                 </div>
                 <div className="row ml-2">
                   <p>
                     <b> Perfil profesional:</b>{" "}
-                    {" " + profile.perfilProfesional}
+                    {" " + profile.persona.perfilProfesional}
                   </p>
                 </div>
                 <div className="row ml-2">
                   <p>
                     <b> Experiencia laboral:</b>{" "}
-                    {" " + profile.experienciaLaboral}
+                    {" " + profile.persona.experienciaLaboral}
                   </p>
                 </div>
 
                 <div className="row ml-2 float-right">
                   <a
-                    href={profile.hojaDeVida}
+                    href={profile.persona.hojaDeVida}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-outline-secondary m-2 p-3"

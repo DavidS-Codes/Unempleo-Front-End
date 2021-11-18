@@ -68,7 +68,7 @@ const OffersCandidates = (props) => {
               <div className="col-md-3">
                 <img
                   src={
-                    !profile.foto.startsWith("https://drive.google.com")
+                    !profile.persona.foto.startsWith("https://drive.google.com")
                       ? testImage
                       : profile.persona.foto
                   }

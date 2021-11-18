@@ -39,9 +39,9 @@ body{
 
 /* Styles to navbar with user authenticaded */
 
-.search-input{
+/* .search-input{
   min-width: 398px;
-}
+} */
 .search-select{
   min-width: 353px;
 }

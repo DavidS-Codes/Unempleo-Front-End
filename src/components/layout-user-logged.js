@@ -81,10 +81,10 @@ const LayoutUserLogged = (props) => {
           <div className="col-md-2 section-left-simple text-center position-static">
             <Link
               to="/offers?filter=todo"
-              className="btn btn-outline-secondary m-2"
+              className="btn btn-outline-secondary m-2 p-3"
               replace
             >
-              Ver ofertas
+              Buscar Ofertas
             </Link>
             <button
               className="btn btn-outline-secondary ml-5 mb-2 fixed-bottom"

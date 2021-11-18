@@ -73,7 +73,7 @@ class Navbar extends React.Component {
                       <span className="input-group-append">
                         <Link
                           to={this.state.value}
-                          className="btn btn-outline-secondary border-right-0 btn-search-custom"
+                          className="btn btn-outline-secondary btn-search-custom"
                           onClick={() =>   window.location.replace(this.state.value)}
                           replace
                         >

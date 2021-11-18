@@ -28,7 +28,6 @@ const OffersCandidates = (props) => {
       .get(url, config)
       .then((response) => {
         setProfiles(response.data);
-        console.log(response.data);
         setLoad(false);
       })
       .catch((err) => {
